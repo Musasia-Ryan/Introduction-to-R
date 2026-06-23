@@ -32,8 +32,11 @@ jobs:
       - name: Render slides
         run: quarto render
 
+      - name: Rename output to index.html
+        run: mv _site/slide.html _site/index.html
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: _site      # deploy only the rendered output
-          branch: gh-pages   # creates this branch automatically if missing
+          folder: _site
+          branch: gh-pages
