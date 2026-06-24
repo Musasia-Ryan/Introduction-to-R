@@ -1,6 +1,15 @@
 ---
 title: "Data Wrangling in R"
 author: "Ryan Musasia"
+filters:
+  - webr
+webr:
+  packages:
+    - dplyr
+    - readr
+    - tibble
+  resources:
+    - ideal3a.csv
 format:
   revealjs:
     theme: [default, custom.scss]
@@ -24,8 +33,82 @@ execute:
 ---
 
 ```{=html}
+<style>
+/* ── Option 2: Two-Tier Typography ── */
+
+/* Prose — prominent and readable */
+.reveal .slides section p,
+.reveal .slides section li {
+  font-size: 22px !important;
+  line-height: 1.6 !important;
+}
+
+/* Blockquotes — one step down from prose */
+.reveal .slides section blockquote p,
+.reveal .slides section blockquote li {
+  font-size: 17px !important;
+  line-height: 1.55 !important;
+}
+
+/* Slide tables — compact but legible */
+.reveal .slides section table td,
+.reveal .slides section table th {
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  padding: 5px 10px !important;
+}
+
+/* WebR editor code — clearly smaller than prose */
+.cm-editor,
+.cm-content,
+.cm-line {
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+}
+
+/* Static {r} eval:false code blocks */
+.reveal div.sourceCode pre,
+.reveal div.sourceCode pre code {
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+}
+
+/* Output — smallest tier */
+pre:not([class]) {
+  background: #faf9f7 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 10px 14px !important;
+  font-size: 11px !important;
+  color: #3D3D3D !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+  overflow-y: auto !important;
+  max-height: 190px !important;
+}
+
+/* ── Button fixes ── */
+div.sourceCode {
+  position: relative !important;
+}
+.code-copy-button {
+  position: absolute !important;
+  top: 6px !important;
+  right: 6px !important;
+  z-index: 999 !important;
+  pointer-events: all !important;
+}
+.qwebr-button-reset,
+.qwebr-button-copy {
+  pointer-events: all !important;
+  position: relative !important;
+  z-index: 999 !important;
+}
+</style>
 <script>
 (function () {
+
+  /* ── Section tracker ── */
   var NUM_SECTIONS = 6;
   function buildTracker() {
     if (document.getElementById("section-tracker")) return;
@@ -61,6 +144,64 @@ execute:
     }
   });
   setTimeout(buildTracker, 600);
+
+  /* ── Copy & Reset button feedback ── */
+  document.addEventListener("click", function (e) {
+    var copyBtn = e.target.closest(".code-copy-button, .qwebr-button-copy");
+    var resetBtn = e.target.closest(".qwebr-button-reset");
+
+    if (copyBtn) {
+      showFeedback(copyBtn, "✓ Copied!", "#639922");
+    }
+    if (resetBtn) {
+      showFeedback(resetBtn, "↺ Reset!", "#B22222");
+    }
+  });
+
+  function showFeedback(btn, msg, color) {
+    var prev = btn.innerHTML;
+    var prevBg = btn.style.background;
+    var prevColor = btn.style.color;
+    var prevBorder = btn.style.border;
+    btn.textContent = msg;
+    btn.style.background = color;
+    btn.style.color = "#fff";
+    btn.style.border = "none";
+    setTimeout(function () {
+      btn.innerHTML = prev;
+      btn.style.background = prevBg;
+      btn.style.color = prevColor;
+      btn.style.border = prevBorder;
+    }, 1500);
+  }
+
+  /* ── Output card wrapper ── */
+  document.addEventListener("DOMContentLoaded", function () {
+    var observer = new MutationObserver(function () {
+      document.querySelectorAll("pre:not([class])").forEach(function (pre) {
+        if (pre.parentNode.classList.contains("out-card-wrap")) return;
+
+        var wrap = document.createElement("div");
+        wrap.className = "out-card-wrap";
+        wrap.style.cssText = "background:#faf9f7;border:0.5px solid #d1cab8;border-left:3px solid #639922;border-radius:6px;overflow:hidden;margin-top:8px;max-height:220px;display:flex;flex-direction:column;";
+
+        var header = document.createElement("div");
+        header.style.cssText = "background:#ede9e1;padding:5px 12px;font-size:10px;color:#7a6f60;font-weight:500;display:flex;align-items:center;gap:6px;flex-shrink:0;border-bottom:0.5px solid #d1cab8;";
+        var meta = '';
+        var tibbleMatch = pre.textContent.match(/#\s*A tibble:\s*([\d,]+)\s*[×x]\s*(\d+)/);
+        if (tibbleMatch) {
+          meta = '<span style="font-size:9px;background:#e8e2d8;color:#7a6f60;padding:1px 6px;border-radius:3px;font-family:monospace;margin-left:6px;">' + tibbleMatch[1] + ' rows × ' + tibbleMatch[2] + ' cols</span>';
+        }
+        header.innerHTML = '<span style="width:6px;height:6px;background:#639922;border-radius:50%;display:inline-block;"></span> Output' + meta + '<span style="color:#bbb;font-size:9px;margin-left:auto;">scroll ↕</span>';
+
+        pre.parentNode.insertBefore(wrap, pre);
+        wrap.appendChild(header);
+        wrap.appendChild(pre);
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  });
+
 })();
 </script>
 ```
@@ -74,7 +215,7 @@ library(readxl)
 
 ideal <- read_csv("https://raw.githubusercontent.com/ThumbiMwangi/R_sources/master/ideal3a.csv")
 
-# Sublocation reference table — update with verified field values
+# sublocation reference table — update with verified field values
 sublocation_info <- tibble(
   sublocation = c("East Siboti", "Kidera", "Kokare", "Kamunuoit", "Karisa",
                   "Igero", "Bukati", "Bumala A", "Namboboto", "Ojwando B",
@@ -87,6 +228,34 @@ sublocation_info <- tibble(
                   1420, 1380, 1310)
 )
 ```
+
+
+```{webr-r}
+#| label: webr-data-load
+#| autorun: true
+#| include: false
+
+download.file(
+  "https://raw.githubusercontent.com/Musasia-Ryan/Introduction-to-R/main/ideal3a.csv",
+  "ideal3a.csv"
+)
+
+library(tidyverse)
+ideal <- read_csv("ideal3a.csv")
+
+sublocation_info <- tibble(
+  sublocation = c("East Siboti", "Kidera", "Kokare", "Kamunuoit", "Karisa",
+                  "Igero", "Bukati", "Bumala A", "Namboboto", "Ojwando B",
+                  "Luanda", "Bujwanga", "Magombe East"),
+  division    = c("Sirisia", "Sirisia", "Sirisia", "Teso", "Teso",
+                  "Butula", "Butula", "Butula", "Nambale", "Nambale",
+                  "Emuhaya", "Emuhaya", "Emuhaya"),
+  altitude_m  = c(1450, 1380, 1520, 1340, 1290,
+                  1180, 1220, 1250, 1350, 1290,
+                  1420, 1380, 1310)
+)
+```
+
 
 ## Today's Session
 
@@ -116,7 +285,7 @@ Before you can analyse data, you must load it into R. Two tidyverse packages han
 ## Key Packages
 
 - `readr` reads rectangular text files.
-- `readxl` reads Excel workbooks. 
+- `readxl` reads Excel workbooks.
 - Both produce a **tibble** — R's modern, opinionated data frame.
 
 | Package | Function | Use when… |
@@ -128,8 +297,8 @@ Before you can analyse data, you must load it into R. Two tidyverse packages han
 ```{r}
 #| label: load-libs
 #| eval: false
-library(tidyverse)   
-library(readxl)     
+library(tidyverse)
+library(readxl)
 ```
 
 > `readxl` is not part of the tidyverse core. Always call `library(readxl)` explicitly.
@@ -141,15 +310,14 @@ library(readxl)
 ```{r}
 #| label: read-csv-demo
 #| eval: false
-# reading the data 
+# reading the data
 # this should work when the file is in your working directory
 ideal <- read_csv("ideal.csv")
-
 ```
 
 ## Reading an Excel File
 
-Excel workbooks carry hidden complexity including multiple sheets, merged header rows, dates stored as serial numbers. 
+Excel workbooks carry hidden complexity including multiple sheets, merged header rows, dates stored as serial numbers.
 
 - `read_excel()` exposes each of these as an explicit argument, making your assumptions visible and reproducible.
 
@@ -161,12 +329,11 @@ ideal <- read_excel("ideal.xlsx")
 
 # Precise reading, when sheets have merged titles or extra header rows
 ideal <- read_excel(
-  "ideal.xlsx", # excel file
+  "ideal.xlsx",        # excel file
   sheet = "Calf Data", # specified sheet name
-  skip = 2, # skip merged title rows before the header
-  col_names = TRUE # use the first row as column names,
+  skip = 2,            # skip merged title rows before the header
+  col_names = TRUE     # use the first row as column names
 )
-
 ```
 
 #  The Dataset We'll Use for Today's Session
@@ -177,28 +344,13 @@ The **IDEAL study** followed 534 calves across 14 sub-locations in Western Kenya
 
 Three lines take you from nothing to a live dataset. In practice, you run these once at the top of every script.
 
-```{r}
-#| label: install-load
-#| eval: false
-# First time only — install the package
-install.packages("tidyverse")
-
-# Every session — load the package into memory
-library(tidyverse)
-
-# Read the data
-ideal <- read_csv("https://raw.githubusercontent.com/ThumbiMwangi/R_sources/master/ideal3a.csv")
-```
-
-> Once a package is installed, you never need `install.packages()` again — only `library()`.
-
-## The IDEAL Dataset
-
-```{r}
+```{webr-r}
 #| label: show-data
 # A tibble prints its dimensions and column types automatically
 ideal
 ```
+
+> Once a package is installed, you never need `install.packages()` again — only `library()`.
 
 #  Inspecting Your Data
 
@@ -212,13 +364,13 @@ Never analyse data you have not looked at. These three functions are your first 
 
 :::: {.columns}
 ::: {.column width="50%"}
-```{r}
+```{webr-r}
 #| label: inspect-head
 head(ideal, 5)
 ```
 :::
 ::: {.column width="50%"}
-```{r}
+```{webr-r}
 #| label: inspect-dim
 dim(ideal)
 names(ideal)
@@ -228,10 +380,10 @@ names(ideal)
 
 ## `glimpse()` — The Structural View
 
-- `glimpse()` transposes your data: each column becomes a row, showing its type and first few values side by side. 
+- `glimpse()` transposes your data: each column becomes a row, showing its type and first few values side by side.
 - In a single screen, you learn the shape, the types, and the range of values.
 
-```{r}
+```{webr-r}
 #| label: inspect-glimpse
 glimpse(ideal)
 ```
@@ -240,10 +392,10 @@ glimpse(ideal)
 
 ## `summary()` — The Statistical View
 
-- `summary()` applies summary statistics to every numeric column. Missing values appear as a named count. 
+- `summary()` applies summary statistics to every numeric column. Missing values appear as a named count.
 - One call brings out outliers, impossible values, and data completeness issues that would otherwise stay hidden until analysis.
 
-```{r}
+```{webr-r}
 #| label: inspect-summary
 summary(ideal[, c("Weight", "ManualPCV", "Theileria.spp.", "ADWG")])
 ```
@@ -254,7 +406,7 @@ The pipe is the single most transformative idea in tidyverse programming. It tur
 
 ## The Pipe Operator `|>`
 
-- Without the pipe, reading R code means parsing from the innermost call outward — the opposite of how you reason about a problem. 
+- Without the pipe, reading R code means parsing from the innermost call outward — the opposite of how you reason about a problem.
 - The pipe lets you write steps in the order they happen.
 
 :::: {.columns}
@@ -303,12 +455,11 @@ ideal %>% filter(ReasonsLoss1 == "survived")
 ideal |>  filter(ReasonsLoss1 == "survived")
 ```
 
-
 ## `filter()` — Keeping the Rows You Need
 
 `filter()` evaluates a condition row by row and returns only the rows where the condition is `TRUE`. Every other row is silently discarded leaving the column structure is unchanged.
 
-```{r}
+```{webr-r}
 #| label: filter-basic
 # Keep only calves that did not survive
 ideal |>
@@ -317,24 +468,24 @@ ideal |>
 
 ## `filter()` — Combining Conditions
 
-- Separate conditions with a `&` for AND logic, or `|` for OR logic. 
+- Separate conditions with a `&` for AND logic, or `|` for OR logic.
 - R tests each row independently — only rows that satisfy every condition are kept.
 
-```{r}
+```{webr-r}
 #| label: filter-and
 # Theileria-positive calves that survived — AND logic
 ideal |>
-  dplyr::filter(`Theileria.spp.` == 1 & ReasonsLoss1 == "survived") |> 
+  dplyr::filter(`Theileria.spp.` == 1 & ReasonsLoss1 == "survived") |>
   head()
 ```
 
 . . .
 
-```{r}
+```{webr-r}
 #| label: filter-or
 # Visits from either Kidera or Igero — OR logic
 ideal |>
-  dplyr::filter(sublocation == "Kidera" | sublocation == "Igero") |> 
+  dplyr::filter(sublocation == "Kidera" | sublocation == "Igero") |>
   head()
 ```
 
@@ -344,7 +495,7 @@ ideal |>
 
 Missing values are R's most common source of silent, hard-to-detect errors. The rule is simple: `NA == NA` returns `NA`, not `TRUE`. That means `filter(Weight == NA)` always returns zero rows — even when missing values exist.
 
-```{r}
+```{webr-r}
 #| label: filter-na
 # use is.na() to test for missingness
 ideal |>
@@ -353,7 +504,7 @@ ideal |>
 
 . . .
 
-```{r}
+```{webr-r}
 #| label: filter-na-check
 # count how many visits are missing a weight measurement
 ideal |>
@@ -379,16 +530,16 @@ ideal |>
 
 ## `filter()` — The `%in%` Operator
 
-- `%in%` tests membership in a set — far more readable than chaining multiple `==` conditions with `|`. 
+- `%in%` tests membership in a set — far more readable than chaining multiple `==` conditions with `|`.
 
 - It scales naturally: adding a fourth location is one comma, not a new line of logic.
 
-```{r}
+```{webr-r}
 #| label: filter-in
 # select three specific sub-locations
 ideal |>
   dplyr::filter(sublocation %in% c("Kidera", "Igero", "Luanda")) |>
-  dplyr::select(CalfID, sublocation, Weight, ReasonsLoss1) |> 
+  dplyr::select(CalfID, sublocation, Weight, ReasonsLoss1) |>
   head()
 ```
 
@@ -397,7 +548,7 @@ ideal |>
 
 - A well-structured analysis uses only the columns it needs, named in a way that makes code self-explanatory.
 
-- `select()` shapes the column space; 
+- `select()` shapes the column space;
 
 - `rename()` removes the friction of working with raw source names.
 
@@ -405,10 +556,10 @@ ideal |>
 
 Pass column names directly. `select()` returns a tibble with exactly those columns in the order you listed them. Rows are untouched.
 
-```{r}
+```{webr-r}
 #| label: select-basic
 ideal |>
-  dplyr::select(CalfID, sublocation, CalfSex, Weight, ManualPCV,`Theileria.spp.`, ReasonsLoss1)
+  dplyr::select(CalfID, sublocation, CalfSex, Weight, ManualPCV, `Theileria.spp.`, ReasonsLoss1)
 ```
 
 > Columns with `.` in their names still require backticks inside `select()`. One of many reasons to `rename()` early.
@@ -417,7 +568,7 @@ ideal |>
 
 Prefix any name with `-` to drop it instead of keeping it. When you want most columns but not a few, dropping is more concise than listing every keeper.
 
-```{r}
+```{webr-r}
 #| label: select-drop
 # remove administrative columns
 ideal |>
@@ -428,12 +579,12 @@ ideal |>
 
 When a dataset has dozens of columns, selecting by pattern is more robust than listing names.
 
-```{r}
+```{webr-r}
 #| label: select-helpers
 # select both ELISA columns without naming them explicitly
 ideal |>
-  select(CalfID, starts_with("ELISA")) |> 
-  head(n=1)
+  select(CalfID, starts_with("ELISA")) |>
+  head(n = 1)
 ```
 
 | Helper | Selects columns whose names… |
@@ -448,7 +599,7 @@ ideal |>
 
 - You have now seen the friction that raw source names create — backticks for `Theileria.spp.`, uppercase everywhere, cryptic codes like `ReasonsLoss1`. `rename()` removes that friction permanently. Do it once, and every line that follows is cleaner.
 
-```{r}
+```{webr-r}
 #| label: rename-basic
 # syntax: rename(new_name = old_name)
 ideal |>
@@ -466,7 +617,7 @@ ideal |>
 
 - `arrange()` reorders rows by one or more columns. Unlike `filter()`, it never removes rows it only changes their order.
 
-```{r}
+```{webr-r}
 #| label: arrange
 # which calves were heaviest at the time of their visit?
 ideal |>
@@ -485,7 +636,7 @@ ideal |>
 
 - `mutate()` appends the new column to the right of the tibble. Every existing column is preserved exactly as it was.
 
-```{r}
+```{webr-r}
 #| label: mutate-basic
 # here we decode the integer sex code into a human-readable label.
 ideal |>
@@ -498,13 +649,13 @@ ideal |>
 
 - A single `mutate()` call creates as many columns as you need. Later expressions in the same call can reference columns created earlier, so the order of your derivations matters and can build on itself.
 
-```{r}
+```{webr-r}
 #| label: mutate-multi
 ideal |>
   mutate(
     sex_label  = if_else(CalfSex == 1, "Male", "Female"),
-    weight_lbs = round(Weight * 2.205, 1),      # convert kg to pounds
-    anaemic = ManualPCV < 24                  # confirmatory test for anaemia
+    weight_lbs = round(Weight * 2.205, 1),   # convert kg to pounds
+    anaemic    = ManualPCV < 24              # confirmatory test for anaemia
   ) |>
   select(CalfID, sex_label, Weight, weight_lbs, ManualPCV, anaemic) |>
   head(3)
@@ -512,18 +663,18 @@ ideal |>
 
 ## `mutate()` with `case_when()`
 
-- `case_when()` is R's vectorised multi-condition classifier — the equivalent of Excel's nested `IFS`. 
+- `case_when()` is R's vectorised multi-condition classifier — the equivalent of Excel's nested `IFS`.
 - Each condition is evaluated top-to-bottom; the first `TRUE` match determines the value assigned to that row.
 
-```{r}
+```{webr-r}
 #| label: case-when
 ideal |>
   dplyr::mutate(
     anaemia_class = case_when(
-      is.na(ManualPCV) ~ "Unknown",  # always test for NA first
-      ManualPCV < 24 ~ "Severe anaemia",
-      ManualPCV < 30 ~ "Mild anaemia",
-      TRUE  ~ "Normal" # the catch-all
+      is.na(ManualPCV)  ~ "Unknown",       # always test for NA first
+      ManualPCV < 24    ~ "Severe anaemia",
+      ManualPCV < 30    ~ "Mild anaemia",
+      TRUE              ~ "Normal"         # the catch-all
     )
   ) |>
   dplyr::select(CalfID, ManualPCV, anaemia_class)
@@ -557,7 +708,7 @@ Most research questions are comparisons: *does this outcome differ across groups
 
 Without a grouping, `summarise()` collapses the entire dataset to a single summary row. This is your reference point.
 
-```{r}
+```{webr-r}
 #| label: summarise-alone
 ideal |>
   summarise(
@@ -573,11 +724,11 @@ ideal |>
 
 ## `group_by()` + `summarise()`
 
-- Add `group_by()` and every summary is computed independently for each group. The result is one row per unique combination of grouping variables. 
+- Add `group_by()` and every summary is computed independently for each group. The result is one row per unique combination of grouping variables.
 
 - Call `ungroup()` afterwards to release the grouping structure.
 
-```{r}
+```{webr-r}
 #| label: group-summarise
 result <- ideal |>
   group_by(sublocation, ReasonsLoss1) |>
@@ -587,12 +738,14 @@ result <- ideal |>
     mean_pcv    = round(mean(ManualPCV, na.rm = TRUE), 1)
   ) |>
   ungroup() |>
-  arrange(sublocation, ReasonsLoss1) 
+  arrange(sublocation, ReasonsLoss1)
+
+result
 ```
 
 ## Disease Burden by Outcome
 
-```{r}
+```{webr-r}
 #| label: group-theileria
 ideal |>
   group_by(ReasonsLoss1) |>
@@ -664,7 +817,7 @@ sublocation_info
 
 ## `left_join()` — Attach Without Losing Rows
 
-```{r}
+```{webr-r}
 #| label: left-join
 # summarise to sublocation level, then attach geographic metadata
 calf_summary <- ideal |>
@@ -677,13 +830,15 @@ calf_summary <- ideal |>
 
 calf_join <- calf_summary |>
   left_join(sublocation_info, by = "sublocation")
+
+calf_join
 ```
 
 > **Yiro West** has no entry in `sublocation_info`, so it receives `NA` for `division` and `altitude_m`. It is still present in the result — `left_join()` never drops a row from the left table.
 
 ## `inner_join()` — Only Complete Matches
 
-```{r}
+```{webr-r}
 #| label: inner-join
 # only sub-locations present in both tables survive
 calf_summary |>
@@ -694,7 +849,7 @@ calf_summary |>
 
 ## `anti_join()` — Diagnosing the Gaps
 
-```{r}
+```{webr-r}
 #| label: anti-join
 # which sub-locations in the data have no metadata entry?
 calf_summary |>
@@ -705,7 +860,7 @@ calf_summary |>
 
 ## Joining on the Full Dataset
 
-```{r}
+```{webr-r}
 #| label: join-raw
 ideal |>
   left_join(sublocation_info, by = "sublocation") |>
