@@ -1,0 +1,800 @@
+county,Species,value
+Baringo,Camels,19263
+Baringo,Cattle(Beef),383626
+Baringo,Cattle(Dairy),147496
+Baringo,Cattle(Total),531122
+Baringo,Chicken(Broilers),15906
+Baringo,Chicken(Indigenous),31173
+Baringo,Chicken(Layers),1251753
+Baringo,Chicken(Total),1298832
+Baringo,Donkeys,4443
+Baringo,Goat(Total),1053794
+Baringo,Goats(Dairy),7743
+Baringo,Goats(Meat),1046051
+Baringo,Pigs,350
+Baringo,Rabbits,6503
+Baringo,Sheep(Hair),380921
+Baringo,Sheep(Total),399360
+Baringo,Sheep(Wool),18439
+Bomet,Camels,0
+Bomet,Cattle(Beef),7947
+Bomet,Cattle(Dairy),329946
+Bomet,Cattle(Total),337893
+Bomet,Chicken(Broilers),13851
+Bomet,Chicken(Indigenous),96343
+Bomet,Chicken(Layers),961090
+Bomet,Chicken(Total),1071284
+Bomet,Donkeys,9895
+Bomet,Goat(Total),156356
+Bomet,Goats(Dairy),82762
+Bomet,Goats(Meat),73594
+Bomet,Pigs,358
+Bomet,Rabbits,6685
+Bomet,Sheep(Hair),77249
+Bomet,Sheep(Total),166099
+Bomet,Sheep(Wool),88850
+Bungoma,Camels,0
+Bungoma,Cattle(Beef),288165
+Bungoma,Cattle(Dairy),183783
+Bungoma,Cattle(Total),471948
+Bungoma,Chicken(Broilers),21982
+Bungoma,Chicken(Indigenous),56634
+Bungoma,Chicken(Layers),3123769
+Bungoma,Chicken(Total),3202385
+Bungoma,Donkeys,12754
+Bungoma,Goat(Total),158849
+Bungoma,Goats(Dairy),6939
+Bungoma,Goats(Meat),151910
+Bungoma,Pigs,18227
+Bungoma,Rabbits,40541
+Bungoma,Sheep(Hair),141092
+Bungoma,Sheep(Total),142452
+Bungoma,Sheep(Wool),1360
+Busia,Camels,0
+Busia,Cattle(Beef),269917
+Busia,Cattle(Dairy),35976
+Busia,Cattle(Total),305893
+Busia,Chicken(Broilers),13005
+Busia,Chicken(Indigenous),60780
+Busia,Chicken(Layers),1739979
+Busia,Chicken(Total),1813764
+Busia,Donkeys,311
+Busia,Goat(Total),108916
+Busia,Goats(Dairy),2586
+Busia,Goats(Meat),106330
+Busia,Pigs,86220
+Busia,Rabbits,5461
+Busia,Sheep(Hair),49415
+Busia,Sheep(Total),49415
+Busia,Sheep(Wool),0
+Elgeyo Marakwet,Camels,557
+Elgeyo Marakwet,Cattle(Beef),124729
+Elgeyo Marakwet,Cattle(Dairy),280385
+Elgeyo Marakwet,Cattle(Total),405114
+Elgeyo Marakwet,Chicken(Broilers),4054
+Elgeyo Marakwet,Chicken(Indigenous),20209
+Elgeyo Marakwet,Chicken(Layers),675814
+Elgeyo Marakwet,Chicken(Total),700077
+Elgeyo Marakwet,Donkeys,3886
+Elgeyo Marakwet,Goat(Total),376868
+Elgeyo Marakwet,Goats(Dairy),2485
+Elgeyo Marakwet,Goats(Meat),374383
+Elgeyo Marakwet,Pigs,635
+Elgeyo Marakwet,Rabbits,2562
+Elgeyo Marakwet,Sheep(Hair),222819
+Elgeyo Marakwet,Sheep(Total),443694
+Elgeyo Marakwet,Sheep(Wool),220875
+Embu,Camels,11851
+Embu,Cattle(Beef),200678
+Embu,Cattle(Dairy),134493
+Embu,Cattle(Total),335171
+Embu,Chicken(Broilers),25622
+Embu,Chicken(Indigenous),70363
+Embu,Chicken(Layers),629057
+Embu,Chicken(Total),725042
+Embu,Donkeys,6
+Embu,Goat(Total),387301
+Embu,Goats(Dairy),49927
+Embu,Goats(Meat),337374
+Embu,Pigs,28833
+Embu,Rabbits,31192
+Embu,Sheep(Hair),57919
+Embu,Sheep(Total),57919
+Embu,Sheep(Wool),0
+Garissa,Camels,491280
+Garissa,Cattle(Beef),1153105
+Garissa,Cattle(Dairy),399105
+Garissa,Cattle(Total),1552210
+Garissa,Chicken(Broilers),204000
+Garissa,Chicken(Indigenous),129456
+Garissa,Chicken(Layers),261150
+Garissa,Chicken(Total),594606
+Garissa,Donkeys,134422
+Garissa,Goat(Total),1924862
+Garissa,Goats(Dairy),267
+Garissa,Goats(Meat),1924595
+Garissa,Pigs,0
+Garissa,Rabbits,141
+Garissa,Sheep(Hair),1036163
+Garissa,Sheep(Total),1036163
+Garissa,Sheep(Wool),0
+Homa Bay,Camels,0
+Homa Bay,Cattle(Beef),385137
+Homa Bay,Cattle(Dairy),12203
+Homa Bay,Cattle(Total),397340
+Homa Bay,Chicken(Broilers),4856
+Homa Bay,Chicken(Indigenous),18558
+Homa Bay,Chicken(Layers),4600514
+Homa Bay,Chicken(Total),4623928
+Homa Bay,Donkeys,10354
+Homa Bay,Goat(Total),557256
+Homa Bay,Goats(Dairy),5147
+Homa Bay,Goats(Meat),552109
+Homa Bay,Pigs,15497
+Homa Bay,Rabbits,4328
+Homa Bay,Sheep(Hair),297464
+Homa Bay,Sheep(Total),297464
+Homa Bay,Sheep(Wool),0
+Isiolo,Camels,162516
+Isiolo,Cattle(Beef),166184
+Isiolo,Cattle(Dairy),6764
+Isiolo,Cattle(Total),172948
+Isiolo,Chicken(Broilers),14539
+Isiolo,Chicken(Indigenous),29068
+Isiolo,Chicken(Layers),105077
+Isiolo,Chicken(Total),148684
+Isiolo,Donkeys,39283
+Isiolo,Goat(Total),1092000
+Isiolo,Goats(Dairy),1255
+Isiolo,Goats(Meat),1090745
+Isiolo,Pigs,476
+Isiolo,Rabbits,824
+Isiolo,Sheep(Hair),883010
+Isiolo,Sheep(Total),883010
+Isiolo,Sheep(Wool),0
+Kajiado,Camels,2653
+Kajiado,Cattle(Beef),378400
+Kajiado,Cattle(Dairy),137500
+Kajiado,Cattle(Total),515900
+Kajiado,Chicken(Broilers),1004948
+Kajiado,Chicken(Indigenous),156617
+Kajiado,Chicken(Layers),324284
+Kajiado,Chicken(Total),1485849
+Kajiado,Donkeys,40102
+Kajiado,Goat(Total),1036872
+Kajiado,Goats(Dairy),3453
+Kajiado,Goats(Meat),1033419
+Kajiado,Pigs,51318
+Kajiado,Rabbits,15694
+Kajiado,Sheep(Hair),959654
+Kajiado,Sheep(Total),959654
+Kajiado,Sheep(Wool),0
+Kakamega,Camels,9
+Kakamega,Cattle(Beef),320621
+Kakamega,Cattle(Dairy),106845
+Kakamega,Cattle(Total),427466
+Kakamega,Chicken(Broilers),344492
+Kakamega,Chicken(Indigenous),434247
+Kakamega,Chicken(Layers),3445882
+Kakamega,Chicken(Total),4224621
+Kakamega,Donkeys,2413
+Kakamega,Goat(Total),129535
+Kakamega,Goats(Dairy),10074
+Kakamega,Goats(Meat),119461
+Kakamega,Pigs,83299
+Kakamega,Rabbits,61721
+Kakamega,Sheep(Hair),86038
+Kakamega,Sheep(Total),86488
+Kakamega,Sheep(Wool),450
+Kericho,Camels,0
+Kericho,Cattle(Beef),111398
+Kericho,Cattle(Dairy),281601
+Kericho,Cattle(Total),392999
+Kericho,Chicken(Broilers),8810
+Kericho,Chicken(Indigenous),49641
+Kericho,Chicken(Layers),505099
+Kericho,Chicken(Total),563550
+Kericho,Donkeys,15000
+Kericho,Goat(Total),84805
+Kericho,Goats(Dairy),2068
+Kericho,Goats(Meat),82737
+Kericho,Pigs,1322
+Kericho,Rabbits,6874
+Kericho,Sheep(Hair),53001
+Kericho,Sheep(Total),65196
+Kericho,Sheep(Wool),12195
+Kiambu,Camels,0
+Kiambu,Cattle(Beef),29875
+Kiambu,Cattle(Dairy),273836
+Kiambu,Cattle(Total),303711
+Kiambu,Chicken(Broilers),439334
+Kiambu,Chicken(Indigenous),1605513
+Kiambu,Chicken(Layers),1339610
+Kiambu,Chicken(Total),3384457
+Kiambu,Donkeys,6667
+Kiambu,Goat(Total),85934
+Kiambu,Goats(Dairy),15182
+Kiambu,Goats(Meat),70752
+Kiambu,Pigs,96682
+Kiambu,Rabbits,25135
+Kiambu,Sheep(Hair),88457
+Kiambu,Sheep(Total),128654
+Kiambu,Sheep(Wool),40197
+Kilifi,Camels,2490
+Kilifi,Cattle(Beef),236893
+Kilifi,Cattle(Dairy),31993
+Kilifi,Cattle(Total),268886
+Kilifi,Chicken(Broilers),227010
+Kilifi,Chicken(Indigenous),82056
+Kilifi,Chicken(Layers),702740
+Kilifi,Chicken(Total),1011806
+Kilifi,Donkeys,767
+Kilifi,Goat(Total),476770
+Kilifi,Goats(Dairy),3480
+Kilifi,Goats(Meat),473290
+Kilifi,Pigs,2766
+Kilifi,Rabbits,5123
+Kilifi,Sheep(Hair),68084
+Kilifi,Sheep(Total),68084
+Kilifi,Sheep(Wool),0
+Kirinyaga,Camels,0
+Kirinyaga,Cattle(Beef),41100
+Kirinyaga,Cattle(Dairy),89889
+Kirinyaga,Cattle(Total),130989
+Kirinyaga,Chicken(Broilers),499050
+Kirinyaga,Chicken(Indigenous),44600
+Kirinyaga,Chicken(Layers),383848
+Kirinyaga,Chicken(Total),927498
+Kirinyaga,Donkeys,5055
+Kirinyaga,Goat(Total),76692
+Kirinyaga,Goats(Dairy),24337
+Kirinyaga,Goats(Meat),52355
+Kirinyaga,Pigs,17616
+Kirinyaga,Rabbits,21099
+Kirinyaga,Sheep(Hair),19178
+Kirinyaga,Sheep(Total),19178
+Kirinyaga,Sheep(Wool),0
+Kisii,Camels,0
+Kisii,Cattle(Beef),166028
+Kisii,Cattle(Dairy),57236
+Kisii,Cattle(Total),223264
+Kisii,Chicken(Broilers),25106
+Kisii,Chicken(Indigenous),97679
+Kisii,Chicken(Layers),1039450
+Kisii,Chicken(Total),1162235
+Kisii,Donkeys,1762
+Kisii,Goat(Total),67194
+Kisii,Goats(Dairy),2473
+Kisii,Goats(Meat),64721
+Kisii,Pigs,1862
+Kisii,Rabbits,5623
+Kisii,Sheep(Hair),15676
+Kisii,Sheep(Total),15676
+Kisii,Sheep(Wool),0
+Kisumu,Camels,0
+Kisumu,Cattle(Beef),229614
+Kisumu,Cattle(Dairy),25218
+Kisumu,Cattle(Total),254832
+Kisumu,Chicken(Broilers),676403
+Kisumu,Chicken(Indigenous),71326
+Kisumu,Chicken(Layers),3358608
+Kisumu,Chicken(Total),4106337
+Kisumu,Donkeys,3526
+Kisumu,Goat(Total),214840
+Kisumu,Goats(Dairy),4244
+Kisumu,Goats(Meat),210596
+Kisumu,Pigs,159290
+Kisumu,Rabbits,11806
+Kisumu,Sheep(Hair),267464
+Kisumu,Sheep(Total),267464
+Kisumu,Sheep(Wool),0
+Kitui,Camels,0
+Kitui,Cattle(Beef),602505
+Kitui,Cattle(Dairy),10564
+Kitui,Cattle(Total),613069
+Kitui,Chicken(Broilers),22743
+Kitui,Chicken(Indigenous),452859
+Kitui,Chicken(Layers),4101538
+Kitui,Chicken(Total),4577140
+Kitui,Donkeys,326095
+Kitui,Goat(Total),2006090
+Kitui,Goats(Dairy),7032
+Kitui,Goats(Meat),1999058
+Kitui,Pigs,3595
+Kitui,Rabbits,19712
+Kitui,Sheep(Hair),131486
+Kitui,Sheep(Total),131486
+Kitui,Sheep(Wool),0
+Kwale,Camels,2826
+Kwale,Cattle(Beef),260801
+Kwale,Cattle(Dairy),8472
+Kwale,Cattle(Total),269273
+Kwale,Chicken(Broilers),79568
+Kwale,Chicken(Indigenous),41594
+Kwale,Chicken(Layers),614192
+Kwale,Chicken(Total),735354
+Kwale,Donkeys,1359
+Kwale,Goat(Total),476387
+Kwale,Goats(Dairy),3584
+Kwale,Goats(Meat),472803
+Kwale,Pigs,1051
+Kwale,Rabbits,2498
+Kwale,Sheep(Hair),77309
+Kwale,Sheep(Total),77309
+Kwale,Sheep(Wool),0
+Laikipia,Camels,19430
+Laikipia,Cattle(Beef),243266
+Laikipia,Cattle(Dairy),79575
+Laikipia,Cattle(Total),322841
+Laikipia,Chicken(Broilers),54354
+Laikipia,Chicken(Indigenous),59220
+Laikipia,Chicken(Layers),640170
+Laikipia,Chicken(Total),753744
+Laikipia,Donkeys,20680
+Laikipia,Goat(Total),614790
+Laikipia,Goats(Dairy),18550
+Laikipia,Goats(Meat),596240
+Laikipia,Pigs,5990
+Laikipia,Rabbits,10355
+Laikipia,Sheep(Hair),374340
+Laikipia,Sheep(Total),377590
+Laikipia,Sheep(Wool),3250
+Lamu,Camels,221508
+Lamu,Cattle(Beef),357504
+Lamu,Cattle(Dairy),10391
+Lamu,Cattle(Total),367895
+Lamu,Chicken(Broilers),7816
+Lamu,Chicken(Indigenous),9066
+Lamu,Chicken(Layers),225633
+Lamu,Chicken(Total),242515
+Lamu,Donkeys,73385
+Lamu,Goat(Total),1043376
+Lamu,Goats(Dairy),7222
+Lamu,Goats(Meat),1036154
+Lamu,Pigs,7734
+Lamu,Rabbits,4645
+Lamu,Sheep(Hair),224422
+Lamu,Sheep(Total),224422
+Lamu,Sheep(Wool),0
+Machakos,Camels,190
+Machakos,Cattle(Beef),300220
+Machakos,Cattle(Dairy),65010
+Machakos,Cattle(Total),365230
+Machakos,Chicken(Broilers),446989
+Machakos,Chicken(Indigenous),468386
+Machakos,Chicken(Layers),2381287
+Machakos,Chicken(Total),3296662
+Machakos,Donkeys,25100
+Machakos,Goat(Total),622591
+Machakos,Goats(Dairy),8143
+Machakos,Goats(Meat),614448
+Machakos,Pigs,10627
+Machakos,Rabbits,26897
+Machakos,Sheep(Hair),187777
+Machakos,Sheep(Total),187777
+Machakos,Sheep(Wool),0
+Makueni,Camels,650
+Makueni,Cattle(Beef),199654
+Makueni,Cattle(Dairy),27216
+Makueni,Cattle(Total),226870
+Makueni,Chicken(Broilers),26972
+Makueni,Chicken(Indigenous),37706
+Makueni,Chicken(Layers),1427828
+Makueni,Chicken(Total),1492506
+Makueni,Donkeys,38186
+Makueni,Goat(Total),867333
+Makueni,Goats(Dairy),14992
+Makueni,Goats(Meat),852341
+Makueni,Pigs,3082
+Makueni,Rabbits,16541
+Makueni,Sheep(Hair),112731
+Makueni,Sheep(Total),112731
+Makueni,Sheep(Wool),0
+Mandera,Camels,744612
+Mandera,Cattle(Beef),597279
+Mandera,Cattle(Dairy),51
+Mandera,Cattle(Total),597330
+Mandera,Chicken(Broilers),120
+Mandera,Chicken(Indigenous),1853
+Mandera,Chicken(Layers),47588
+Mandera,Chicken(Total),49561
+Mandera,Donkeys,115162
+Mandera,Goat(Total),2537718
+Mandera,Goats(Dairy),84
+Mandera,Goats(Meat),2537634
+Mandera,Pigs,0
+Mandera,Rabbits,0
+Mandera,Sheep(Hair),636500
+Mandera,Sheep(Total),636500
+Mandera,Sheep(Wool),0
+Marsabit,Camels,183388
+Marsabit,Cattle(Beef),113932
+Marsabit,Cattle(Dairy),396
+Marsabit,Cattle(Total),114328
+Marsabit,Chicken(Broilers),680
+Marsabit,Chicken(Indigenous),8630
+Marsabit,Chicken(Layers),75506
+Marsabit,Chicken(Total),84816
+Marsabit,Donkeys,72968
+Marsabit,Goat(Total),627627
+Marsabit,Goats(Dairy),374
+Marsabit,Goats(Meat),627253
+Marsabit,Pigs,0
+Marsabit,Rabbits,80
+Marsabit,Sheep(Hair),532550
+Marsabit,Sheep(Total),532550
+Marsabit,Sheep(Wool),0
+Meru,Camels,2380
+Meru,Cattle(Beef),221080
+Meru,Cattle(Dairy),227370
+Meru,Cattle(Total),448450
+Meru,Chicken(Broilers),65250
+Meru,Chicken(Indigenous),128280
+Meru,Chicken(Layers),1442230
+Meru,Chicken(Total),1635760
+Meru,Donkeys,5750
+Meru,Goat(Total),268700
+Meru,Goats(Dairy),38820
+Meru,Goats(Meat),229880
+Meru,Pigs,42070
+Meru,Rabbits,25660
+Meru,Sheep(Hair),77240
+Meru,Sheep(Total),109550
+Meru,Sheep(Wool),32310
+Migori,Camels,0
+Migori,Cattle(Beef),441898
+Migori,Cattle(Dairy),13334
+Migori,Cattle(Total),455232
+Migori,Chicken(Broilers),2817
+Migori,Chicken(Indigenous),20500
+Migori,Chicken(Layers),4632215
+Migori,Chicken(Total),4655532
+Migori,Donkeys,4462
+Migori,Goat(Total),588522
+Migori,Goats(Dairy),3579
+Migori,Goats(Meat),584943
+Migori,Pigs,7339
+Migori,Rabbits,4326
+Migori,Sheep(Hair),310413
+Migori,Sheep(Total),310413
+Migori,Sheep(Wool),0
+Mombasa,Camels,28
+Mombasa,Cattle(Beef),7482
+Mombasa,Cattle(Dairy),2859
+Mombasa,Cattle(Total),10341
+Mombasa,Chicken(Broilers),121402
+Mombasa,Chicken(Indigenous),37620
+Mombasa,Chicken(Layers),78819
+Mombasa,Chicken(Total),237841
+Mombasa,Donkeys,27
+Mombasa,Goat(Total),25485
+Mombasa,Goats(Dairy),237
+Mombasa,Goats(Meat),25248
+Mombasa,Pigs,2357
+Mombasa,Rabbits,1326
+Mombasa,Sheep(Hair),2263
+Mombasa,Sheep(Total),2263
+Mombasa,Sheep(Wool),0
+Muranga,Camels,0
+Muranga,Cattle(Beef),36536
+Muranga,Cattle(Dairy),322118
+Muranga,Cattle(Total),358654
+Muranga,Chicken(Broilers),95759
+Muranga,Chicken(Indigenous),558391
+Muranga,Chicken(Layers),983105
+Muranga,Chicken(Total),1637255
+Muranga,Donkeys,1012
+Muranga,Goat(Total),186758
+Muranga,Goats(Dairy),79663
+Muranga,Goats(Meat),107095
+Muranga,Pigs,48373
+Muranga,Rabbits,64284
+Muranga,Sheep(Hair),41841
+Muranga,Sheep(Total),60300
+Muranga,Sheep(Wool),18459
+Nairobi,Camels,3
+Nairobi,Cattle(Beef),14485
+Nairobi,Cattle(Dairy),13390
+Nairobi,Cattle(Total),27875
+Nairobi,Chicken(Broilers),269974
+Nairobi,Chicken(Indigenous),139005
+Nairobi,Chicken(Layers),238043
+Nairobi,Chicken(Total),647022
+Nairobi,Donkeys,400
+Nairobi,Goat(Total),26222
+Nairobi,Goats(Dairy),4412
+Nairobi,Goats(Meat),21810
+Nairobi,Pigs,18200
+Nairobi,Rabbits,24974
+Nairobi,Sheep(Hair),13334
+Nairobi,Sheep(Total),13340
+Nairobi,Sheep(Wool),6
+Nakuru,Camels,0
+Nakuru,Cattle(Beef),251150
+Nakuru,Cattle(Dairy),466779
+Nakuru,Cattle(Total),717929
+Nakuru,Chicken(Broilers),164613
+Nakuru,Chicken(Indigenous),301737
+Nakuru,Chicken(Layers),1559545
+Nakuru,Chicken(Total),2025895
+Nakuru,Donkeys,21490
+Nakuru,Goat(Total),345763
+Nakuru,Goats(Dairy),47593
+Nakuru,Goats(Meat),298170
+Nakuru,Pigs,27517
+Nakuru,Rabbits,66376
+Nakuru,Sheep(Hair),537937
+Nakuru,Sheep(Total),797440
+Nakuru,Sheep(Wool),259503
+Nandi,Camels,0
+Nandi,Cattle(Beef),72882
+Nandi,Cattle(Dairy),182667
+Nandi,Cattle(Total),255549
+Nandi,Chicken(Broilers),23542
+Nandi,Chicken(Indigenous),62523
+Nandi,Chicken(Layers),547042
+Nandi,Chicken(Total),633107
+Nandi,Donkeys,4588
+Nandi,Goat(Total),34945
+Nandi,Goats(Dairy),3606
+Nandi,Goats(Meat),31339
+Nandi,Pigs,1105
+Nandi,Rabbits,4197
+Nandi,Sheep(Hair),102002
+Nandi,Sheep(Total),112415
+Nandi,Sheep(Wool),10413
+Narok,Camels,0
+Narok,Cattle(Beef),1387727
+Narok,Cattle(Dairy),101940
+Narok,Cattle(Total),1489667
+Narok,Chicken(Broilers),5001
+Narok,Chicken(Indigenous),58987
+Narok,Chicken(Layers),768238
+Narok,Chicken(Total),832226
+Narok,Donkeys,87810
+Narok,Goat(Total),961017
+Narok,Goats(Dairy),4927
+Narok,Goats(Meat),956090
+Narok,Pigs,2530
+Narok,Rabbits,3994
+Narok,Sheep(Hair),2649020
+Narok,Sheep(Total),2722216
+Narok,Sheep(Wool),73196
+Nyamira,Camels,0
+Nyamira,Cattle(Beef),88814
+Nyamira,Cattle(Dairy),36380
+Nyamira,Cattle(Total),125194
+Nyamira,Chicken(Broilers),10787
+Nyamira,Chicken(Indigenous),67709
+Nyamira,Chicken(Layers),499680
+Nyamira,Chicken(Total),578176
+Nyamira,Donkeys,758
+Nyamira,Goat(Total),44128
+Nyamira,Goats(Dairy),1361
+Nyamira,Goats(Meat),42767
+Nyamira,Pigs,1510
+Nyamira,Rabbits,3116
+Nyamira,Sheep(Hair),13137
+Nyamira,Sheep(Total),13457
+Nyamira,Sheep(Wool),320
+Nyandarua,Camels,0
+Nyandarua,Cattle(Beef),40300
+Nyandarua,Cattle(Dairy),385200
+Nyandarua,Cattle(Total),425500
+Nyandarua,Chicken(Broilers),44000
+Nyandarua,Chicken(Indigenous),35100
+Nyandarua,Chicken(Layers),832800
+Nyandarua,Chicken(Total),911900
+Nyandarua,Donkeys,8420
+Nyandarua,Goat(Total),100400
+Nyandarua,Goats(Dairy),20900
+Nyandarua,Goats(Meat),79500
+Nyandarua,Pigs,8530
+Nyandarua,Rabbits,56550
+Nyandarua,Sheep(Hair),228300
+Nyandarua,Sheep(Total),568500
+Nyandarua,Sheep(Wool),340200
+Nyeri,Camels,0
+Nyeri,Cattle(Beef),2200
+Nyeri,Cattle(Dairy),188500
+Nyeri,Cattle(Total),190700
+Nyeri,Chicken(Broilers),186800
+Nyeri,Chicken(Indigenous),117490
+Nyeri,Chicken(Layers),781940
+Nyeri,Chicken(Total),1086230
+Nyeri,Donkeys,739
+Nyeri,Goat(Total),127185
+Nyeri,Goats(Dairy),53195
+Nyeri,Goats(Meat),73990
+Nyeri,Pigs,13115
+Nyeri,Rabbits,28680
+Nyeri,Sheep(Hair),156560
+Nyeri,Sheep(Total),161850
+Nyeri,Sheep(Wool),5290
+Samburu,Camels,60018
+Samburu,Cattle(Beef),274606
+Samburu,Cattle(Dairy),6001
+Samburu,Cattle(Total),280607
+Samburu,Chicken(Broilers),1538
+Samburu,Chicken(Indigenous),3497
+Samburu,Chicken(Layers),171592
+Samburu,Chicken(Total),176627
+Samburu,Donkeys,20761
+Samburu,Goat(Total),610498
+Samburu,Goats(Dairy),3732
+Samburu,Goats(Meat),606766
+Samburu,Pigs,744
+Samburu,Rabbits,343
+Samburu,Sheep(Hair),526317
+Samburu,Sheep(Total),526317
+Samburu,Sheep(Wool),0
+Siaya,Camels,9
+Siaya,Cattle(Beef),504124
+Siaya,Cattle(Dairy),12568
+Siaya,Cattle(Total),516692
+Siaya,Chicken(Broilers),144020
+Siaya,Chicken(Indigenous),120798
+Siaya,Chicken(Layers),1278109
+Siaya,Chicken(Total),1542927
+Siaya,Donkeys,11020
+Siaya,Goat(Total),411837
+Siaya,Goats(Dairy),9769
+Siaya,Goats(Meat),402068
+Siaya,Pigs,20260
+Siaya,Rabbits,18522
+Siaya,Sheep(Hair),227135
+Siaya,Sheep(Total),227135
+Siaya,Sheep(Wool),0
+Taita Taveta,Camels,1242
+Taita Taveta,Cattle(Beef),158925
+Taita Taveta,Cattle(Dairy),32981
+Taita Taveta,Cattle(Total),191906
+Taita Taveta,Chicken(Broilers),71207
+Taita Taveta,Chicken(Indigenous),204880
+Taita Taveta,Chicken(Layers),796494
+Taita Taveta,Chicken(Total),1072581
+Taita Taveta,Donkeys,3894
+Taita Taveta,Goat(Total),377554
+Taita Taveta,Goats(Dairy),5221
+Taita Taveta,Goats(Meat),372333
+Taita Taveta,Pigs,2725
+Taita Taveta,Rabbits,14582
+Taita Taveta,Sheep(Hair),64096
+Taita Taveta,Sheep(Total),64096
+Taita Taveta,Sheep(Wool),0
+Tana River,Camels,71657
+Tana River,Cattle(Beef),515558
+Tana River,Cattle(Dairy),125
+Tana River,Cattle(Total),515683
+Tana River,Chicken(Broilers),2506
+Tana River,Chicken(Indigenous),9099
+Tana River,Chicken(Layers),110366
+Tana River,Chicken(Total),121971
+Tana River,Donkeys,27012
+Tana River,Goat(Total),909718
+Tana River,Goats(Dairy),1098
+Tana River,Goats(Meat),908620
+Tana River,Pigs,54
+Tana River,Rabbits,419
+Tana River,Sheep(Hair),320385
+Tana River,Sheep(Total),320385
+Tana River,Sheep(Wool),0
+Tharaka Nithi,Camels,0
+Tharaka Nithi,Cattle(Beef),92777
+Tharaka Nithi,Cattle(Dairy),76675
+Tharaka Nithi,Cattle(Total),169452
+Tharaka Nithi,Chicken(Broilers),25491
+Tharaka Nithi,Chicken(Indigenous),45660
+Tharaka Nithi,Chicken(Layers),541772
+Tharaka Nithi,Chicken(Total),612923
+Tharaka Nithi,Donkeys,4662
+Tharaka Nithi,Goat(Total),1162904
+Tharaka Nithi,Goats(Dairy),22815
+Tharaka Nithi,Goats(Meat),1140089
+Tharaka Nithi,Pigs,16503
+Tharaka Nithi,Rabbits,101271
+Tharaka Nithi,Sheep(Hair),57512
+Tharaka Nithi,Sheep(Total),57512
+Tharaka Nithi,Sheep(Wool),0
+Trans-Nzoia,Camels,0
+Trans-Nzoia,Cattle(Beef),8379
+Trans-Nzoia,Cattle(Dairy),211168
+Trans-Nzoia,Cattle(Total),219547
+Trans-Nzoia,Chicken(Broilers),23414
+Trans-Nzoia,Chicken(Indigenous),262668
+Trans-Nzoia,Chicken(Layers),1147425
+Trans-Nzoia,Chicken(Total),1433507
+Trans-Nzoia,Donkeys,6019
+Trans-Nzoia,Goat(Total),46139
+Trans-Nzoia,Goats(Dairy),6527
+Trans-Nzoia,Goats(Meat),39612
+Trans-Nzoia,Pigs,8353
+Trans-Nzoia,Rabbits,4943
+Trans-Nzoia,Sheep(Hair),157324
+Trans-Nzoia,Sheep(Total),161894
+Trans-Nzoia,Sheep(Wool),4570
+Turkana,Camels,1055246
+Turkana,Cattle(Beef),3599189
+Turkana,Cattle(Dairy),13
+Turkana,Cattle(Total),3599202
+Turkana,Chicken(Broilers),200
+Turkana,Chicken(Indigenous),2780
+Turkana,Chicken(Layers),1037758
+Turkana,Chicken(Total),1040738
+Turkana,Donkeys,542908
+Turkana,Goat(Total),8061349
+Turkana,Goats(Dairy),443
+Turkana,Goats(Meat),8060906
+Turkana,Pigs,346
+Turkana,Rabbits,26
+Turkana,Sheep(Hair),6651163
+Turkana,Sheep(Total),6651163
+Turkana,Sheep(Wool),0
+Uasin Gishu,Camels,6
+Uasin Gishu,Cattle(Beef),43622
+Uasin Gishu,Cattle(Dairy),349714
+Uasin Gishu,Cattle(Total),393336
+Uasin Gishu,Chicken(Broilers),44305
+Uasin Gishu,Chicken(Indigenous),44350
+Uasin Gishu,Chicken(Layers),710235
+Uasin Gishu,Chicken(Total),798890
+Uasin Gishu,Donkeys,5700
+Uasin Gishu,Goat(Total),89954
+Uasin Gishu,Goats(Dairy),913
+Uasin Gishu,Goats(Meat),89041
+Uasin Gishu,Pigs,17251
+Uasin Gishu,Rabbits,12570
+Uasin Gishu,Sheep(Hair),141105
+Uasin Gishu,Sheep(Total),181374
+Uasin Gishu,Sheep(Wool),40269
+Vihiga,Camels,0
+Vihiga,Cattle(Beef),118750
+Vihiga,Cattle(Dairy),45910
+Vihiga,Cattle(Total),164660
+Vihiga,Chicken(Broilers),8160
+Vihiga,Chicken(Indigenous),10400
+Vihiga,Chicken(Layers),924100
+Vihiga,Chicken(Total),942660
+Vihiga,Donkeys,55
+Vihiga,Goat(Total),13150
+Vihiga,Goats(Dairy),8350
+Vihiga,Goats(Meat),4800
+Vihiga,Pigs,3670
+Vihiga,Rabbits,5395
+Vihiga,Sheep(Hair),3840
+Vihiga,Sheep(Total),3840
+Vihiga,Sheep(Wool),0
+Wajir,Camels,1209342
+Wajir,Cattle(Beef),749849
+Wajir,Cattle(Dairy),37
+Wajir,Cattle(Total),749886
+Wajir,Chicken(Broilers),11904
+Wajir,Chicken(Indigenous),19350
+Wajir,Chicken(Layers),486719
+Wajir,Chicken(Total),517973
+Wajir,Donkeys,0
+Wajir,Goat(Total),2991801
+Wajir,Goats(Dairy),32
+Wajir,Goats(Meat),2991769
+Wajir,Pigs,0
+Wajir,Rabbits,12
+Wajir,Sheep(Hair),2120701
+Wajir,Sheep(Total),2120701
+Wajir,Sheep(Wool),0
+West Pokot,Camels,21343
+West Pokot,Cattle(Beef),538879
+West Pokot,Cattle(Dairy),132545
+West Pokot,Cattle(Total),671424
+West Pokot,Chicken(Broilers),2760
+West Pokot,Chicken(Indigenous),11307
+West Pokot,Chicken(Layers),816161
+West Pokot,Chicken(Total),830228
+West Pokot,Donkeys,3395
+West Pokot,Goat(Total),820562
+West Pokot,Goats(Dairy),1753
+West Pokot,Goats(Meat),818809
+West Pokot,Pigs,778
+West Pokot,Rabbits,7279
+West Pokot,Sheep(Hair),555941
+West Pokot,Sheep(Total),656045
+West Pokot,Sheep(Wool),100104
