@@ -252,10 +252,11 @@ div.sourceCode {
 #| include: false
 library(tidyverse)
 library(readxl)
+if (!requireNamespace("sf", quietly = TRUE)) install.packages("sf")
 library(sf)
 ideal      <- read_csv("https://raw.githubusercontent.com/ThumbiMwangi/R_sources/master/ideal3a.csv")
 population <- read_csv("https://raw.githubusercontent.com/Musasia-Ryan/Introduction-to-R/main/aggregated_Population.csv")
-cattle <- population |> filter(Species == "Cattle(Total)")
+cattle     <- population |> filter(Species == "Cattle(Total)")
 kenya <- tryCatch(
   read_sf("https://raw.githubusercontent.com/Musasia-Ryan/Introduction-to-R/main/ken_county.gpkg"),
   error = function(e) { message("ken_county.gpkg not found — map slides will be blank"); NULL }
