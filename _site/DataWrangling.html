@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Ryan Musasia">
-  <title>Data Wrangling in R</title>
+  <title>Introduction to R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -487,7 +487,7 @@
   };
 
   // Store cell data
-  globalThis.qwebrCellDetails = [{"code":"download.file(\n  \"https://raw.githubusercontent.com/Musasia-Ryan/Introduction-to-R/main/ideal3a.csv\",\n  \"ideal3a.csv\"\n)\ndownload.file(\n  \"https://raw.githubusercontent.com/Musasia-Ryan/Introduction-to-R/main/aggregated_Population.csv\",\n  \"aggregated_Population.csv\"\n)\ndownload.file(\n  \"https://raw.githubusercontent.com/Musasia-Ryan/Introduction-to-R/main/ken_county.gpkg\",\n  \"ken_county.gpkg\"\n)\nlibrary(tidyverse)\nlibrary(sf)\nideal <- read_csv(\"ideal3a.csv\")\npopulation <- read_csv(\"aggregated_Population.csv\")\ncattle <- population |> filter(Species == \"Cattle(Total)\")\nkenya <- read_sf(\"ken_county.gpkg\")\nsublocation_info <- tibble(\n  sublocation = c(\"East Siboti\", \"Kidera\", \"Kokare\", \"Kamunuoit\", \"Karisa\",\n                  \"Igero\", \"Bukati\", \"Bumala A\", \"Namboboto\", \"Ojwando B\",\n                  \"Luanda\", \"Bujwanga\", \"Magombe East\"),\n  division    = c(\"Sirisia\", \"Sirisia\", \"Sirisia\", \"Teso\", \"Teso\",\n                  \"Butula\", \"Butula\", \"Butula\", \"Nambale\", \"Nambale\",\n                  \"Emuhaya\", \"Emuhaya\", \"Emuhaya\"),\n  altitude_m  = c(1450, 1380, 1520, 1340, 1290,\n                  1180, 1220, 1250, 1350, 1290,\n                  1420, 1380, 1310)\n)\n# Pre-compute visualisation datasets so plot slides work on direct navigation\ncalves_per_sub <- ideal |>\n  group_by(sublocation) |>\n  summarise(n_calves = n_distinct(CalfID)) |>\n  ungroup()\ncalves_by_sex <- ideal |>\n  mutate(sex_label = case_when(\n    CalfSex == 1 ~ \"Male\",\n    CalfSex == 2 ~ \"Female\",\n    TRUE ~ \"Unknown\"\n  )) |>\n  group_by(sublocation, sex_label) |>\n  summarise(n_calves = n_distinct(CalfID), .groups = \"drop\")","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"include":"false","label":"webr-data-load","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# A tibble prints its dimensions and column types automatically\nideal","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"show-data","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"head(ideal, 5)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"inspect-head","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"dim(ideal)\nnames(ideal)","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"inspect-dim","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"glimpse(ideal)","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"inspect-glimpse","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(ideal[, c(\"Weight\", \"ManualPCV\", \"Theileria.spp.\", \"ADWG\")])","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"inspect-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# keep only calves that did not survive\nideal |>\n  filter(ReasonsLoss1 == \"died\")","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"filter-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Theileria-positive calves that survived — AND logic\nideal |>\n  dplyr::filter(`Theileria.spp.` == 1 & ReasonsLoss1 == \"survived\") |>\n  head()","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"filter-and","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# visits from either Kidera or Igero — OR logic\nideal |>\n  dplyr::filter(sublocation == \"Kidera\" | sublocation == \"Igero\") |>\n  head()","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"filter-or","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# use is.na() to test for missingness\nideal |>\n  filter(!is.na(Weight))","id":10,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"filter-na","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# count how many visits are missing a weight measurement\nideal |>\n  filter(is.na(Weight)) |>\n  nrow()","id":11,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"filter-na-check","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# select three specific sub-locations\nideal |>\n  dplyr::filter(sublocation %in% c(\"Kidera\", \"Igero\", \"Luanda\")) |>\n  dplyr::select(CalfID, sublocation, Weight, ReasonsLoss1) |>\n  head()","id":12,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"filter-in","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ideal |>\n  dplyr::select(CalfID, sublocation, CalfSex, Weight, ManualPCV, `Theileria.spp.`, ReasonsLoss1)","id":13,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"select-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# removing columns\nideal |>\n  select(-CADOB, -VisitID, -VisitWeek, -WeightMax, -WeightMin)","id":14,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"select-drop","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# select both ELISA columns without naming them explicitly\nideal |>\n  select(CalfID, starts_with(\"ELISA\")) |>\n  head(n = 1)","id":15,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"select-helpers","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# syntax: rename(new_name = old_name)\nideal |>\n  rename(\n    sex       = CalfSex,\n    theileria = `Theileria.spp.`,\n    outcome   = ReasonsLoss1\n  ) |>\n  select(CalfID, sex, theileria, outcome) |>\n  head(2)","id":16,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"rename-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# which calves were heaviest at the time of their visit?\nideal |>\n  filter(!is.na(Weight)) |>\n  select(CalfID, sublocation, Age, Weight, ReasonsLoss1) |>\n  arrange(desc(Weight)) |> # from largest to smallest.\n  head(5)","id":17,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"arrange","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# here we decode the integer sex code into a human-readable label.\nideal |>\n  mutate(sex_label = if_else(CalfSex == 1, \"Male\", \"Female\")) |>\n  select(CalfID, CalfSex, sex_label, Weight, ReasonsLoss1) |>\n  head(5)","id":18,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"mutate-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ideal |>\n  mutate(\n    sex_label  = if_else(CalfSex == 1, \"Male\", \"Female\"),\n    weight_lbs = round(Weight * 2.205, 1), # convert kg to pounds\n    anaemic = ManualPCV < 24 # confirmatory test for anaemia\n  ) |>\n  select(CalfID, sex_label, Weight, weight_lbs, ManualPCV, anaemic) |>\n  head(3)","id":19,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"mutate-multi","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ideal |>\n  dplyr::mutate(\n    anaemia_class = case_when(\n      is.na(ManualPCV)  ~ \"Unknown\",       # always test for NA first\n      ManualPCV < 24    ~ \"Severe anaemia\",\n      ManualPCV < 30    ~ \"Mild anaemia\",\n      TRUE ~ \"Normal\" \n    )\n  ) |>\n  dplyr::select(CalfID, ManualPCV, anaemia_class)","id":20,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"case-when","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ideal |>\n  summarise(\n    n_visits = n(),\n    n_calves = n_distinct(CalfID),\n    mean_weight = round(mean(Weight,    na.rm = TRUE), 1),\n    mean_pcv = round(mean(ManualPCV, na.rm = TRUE), 1),\n    theileria_pos = sum(`Theileria.spp.` == 1, na.rm = TRUE)\n  )","id":21,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"summarise-alone","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"result <- ideal |>\n  group_by(sublocation, ReasonsLoss1) |>\n  summarise(\n    n_calves = n_distinct(CalfID),\n    mean_weight = round(mean(Weight,    na.rm = TRUE), 1),\n    mean_pcv = round(mean(ManualPCV, na.rm = TRUE), 1)\n  ) |>\n  ungroup() |>\n  arrange(sublocation, ReasonsLoss1)\nresult","id":22,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"group-summarise","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ideal |>\n  group_by(ReasonsLoss1) |>\n  summarise(\n    n_calves = n_distinct(CalfID),\n    theileria_pos = sum(`Theileria.spp.` == 1, na.rm = TRUE),\n    theileria_pct = round(mean(`Theileria.spp.` == 1, na.rm = TRUE) * 100, 1),\n    mean_pcv = round(mean(ManualPCV, na.rm = TRUE), 1),\n    mean_adwg = round(mean(ADWG,      na.rm = TRUE), 3)\n  ) |>\n  ungroup()","id":23,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"group-theileria","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# summarise to sublocation level, then attach geographic metadata\ncalf_summary <- ideal |>\n  group_by(sublocation) |>\n  summarise(\n    n_calves = n_distinct(CalfID),\n    mean_pcv = round(mean(ManualPCV, na.rm = TRUE), 1)\n  ) |>\n  ungroup()\n\ncalf_join <- calf_summary |>\n  left_join(sublocation_info, by = \"sublocation\")\n\ncalf_join","id":24,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"left-join","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# only sub-locations present in both tables survive\ncalf_summary |>\n  inner_join(sublocation_info, by = \"sublocation\")","id":25,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"inner-join","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# which sub-locations in the data have no metadata entry?\ncalf_summary |>\n  anti_join(sublocation_info, by = \"sublocation\")","id":26,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"anti-join","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ideal |>\n  left_join(sublocation_info, by = \"sublocation\") |>\n  filter(!is.na(Weight)) |>\n  select(CalfID, sublocation, division, altitude_m, Weight, ReasonsLoss1) |>\n  head(8)","id":27,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"join-raw","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(data    = ideal,\n       mapping = aes(x = ReasonsLoss1)) +\n  geom_bar(fill = \"#185FA5\") +\n  theme_classic() +\n  labs(title = \"Survival of calves in the first year of life\",\n       x = \"\",\n       y = \"Number of visits\")","id":28,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"bar-plot","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"calves_per_sub <- ideal |>\n  group_by(sublocation) |>\n  summarise(n_calves = n_distinct(CalfID)) |>  # unique calves\n  ungroup()\n\ncalves_per_sub","id":29,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"col-data-prep","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(data = calves_per_sub,\n       mapping = aes(x = sublocation, y = n_calves)) +\n  geom_col(fill = \"#185FA5\") +\n  theme_classic() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +\n  labs(x = \"\", y = \"Number of calves\",\n       title = \"Calves recruited per sub-location\")","id":30,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"col-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(data = calves_per_sub,\n       mapping = aes(x = reorder(sublocation, n_calves),\n                     y = n_calves)) +\n  geom_col(fill = \"#185FA5\") +\n  coord_flip() +\n  theme_classic() +\n  labs(x = \"\",\n       y = \"Number of calves\",\n       title = \"Calves recruited per sub-location\")","id":31,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"col-flipped","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"calves_by_sex <- ideal |>\n  mutate(sex_label = case_when(\n    CalfSex == 1 ~ \"Male\",\n    CalfSex == 2 ~ \"Female\",\n    TRUE ~ \"Unknown\"\n  )) |>\n  group_by(sublocation, sex_label) |>\n  summarise(n_calves = n_distinct(CalfID), .groups = \"drop\")\n\ncalves_by_sex","id":32,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"sex-data-prep","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"top6_subs <- calves_by_sex |>\n  group_by(sublocation) |>\n  summarise(total = sum(n_calves)) |>\n  slice_max(total, n = 5) |>\n  pull(sublocation)\n\nggplot(filter(calves_by_sex, sublocation %in% top6_subs),\n       aes(x = reorder(sublocation, n_calves),\n           y = n_calves, fill = sex_label)) +\n  geom_col(position = \"dodge\") +\n  scale_fill_manual(values = c(Male = \"#2196F3\", Female = \"#E91E63\")) +\n  coord_flip() + theme_classic() +\n  labs(x = \"\", y = \"Number of calves\", fill = \"Sex\",\n       title = \"Calves per sub-location by sex (top 5)\")","id":33,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"bar-grouped","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"kenya","id":34,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"sf-inspect","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(data = kenya) +\n  geom_sf(fill = \"white\", colour = \"black\", linewidth = 0.4) +\n  theme_void() +\n  labs(title = \"Kenya — County Boundaries (47 Counties)\")","id":35,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"kenya-outline","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# filter to a single species\ncattle <- population |>\n  filter(Species == \"Cattle(Total)\")\n\n# county names in the shapefile don't always match the CSV exactly —\n# case_when() fixes four known mismatches before the join\ncattle_map <- kenya |>\n  rename(county = ADM1_EN) |>\n  mutate(county = case_when(\n    county == \"Murang'a\" ~ \"Muranga\",\n    county == \"Elgeyo-Marakwet\" ~ \"Elgeyo Marakwet\",\n    county == \"Tharaka-Nithi\" ~ \"Tharaka Nithi\",\n    county == \"Trans Nzoia\" ~ \"Trans-Nzoia\",\n    TRUE ~ county\n  )) |>\n  left_join(cattle, by = \"county\")\n\ncattle_map |> select(county, value)","id":36,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"choropleth-prep","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(data = cattle_map) +\n  geom_sf(aes(fill = value), colour = \"black\", linewidth = 0.3) +\n  scale_fill_gradient(low = 'lightyellow', \n                      high = 'darkred', \n                      labels = scales::comma,\n                      name = \"Cattle\") +\n  theme_void() +\n  labs(title = \"Cattle Population by County — Kenya\")","id":37,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"choropleth-plot","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+  globalThis.qwebrCellDetails = [{"code":"download.file(\n  \"https://raw.githubusercontent.com/Musasia-Ryan/Introduction-to-R/main/ideal3a.csv\",\n  \"ideal3a.csv\"\n)\ndownload.file(\n  \"https://raw.githubusercontent.com/Musasia-Ryan/Introduction-to-R/main/aggregated_Population.csv\",\n  \"aggregated_Population.csv\"\n)\ndownload.file(\n  \"https://raw.githubusercontent.com/Musasia-Ryan/Introduction-to-R/main/ken_county.gpkg\",\n  \"ken_county.gpkg\"\n)\nlibrary(tidyverse)\nlibrary(sf)\nideal <- read_csv(\"ideal3a.csv\")\npopulation <- read_csv(\"aggregated_Population.csv\")\ncattle <- population |> filter(Species == \"Cattle(Total)\")\nkenya <- read_sf(\"ken_county.gpkg\")\nsublocation_info <- tibble(\n  sublocation = c(\"East Siboti\", \"Kidera\", \"Kokare\", \"Kamunuoit\", \"Karisa\",\n                  \"Igero\", \"Bukati\", \"Bumala A\", \"Namboboto\", \"Ojwando B\",\n                  \"Luanda\", \"Bujwanga\", \"Magombe East\"),\n  division    = c(\"Sirisia\", \"Sirisia\", \"Sirisia\", \"Teso\", \"Teso\",\n                  \"Butula\", \"Butula\", \"Butula\", \"Nambale\", \"Nambale\",\n                  \"Emuhaya\", \"Emuhaya\", \"Emuhaya\"),\n  altitude_m  = c(1450, 1380, 1520, 1340, 1290,\n                  1180, 1220, 1250, 1350, 1290,\n                  1420, 1380, 1310)\n)\n# Pre-compute visualisation datasets so plot slides work on direct navigation\ncalves_per_sub <- ideal |>\n  group_by(sublocation) |>\n  summarise(n_calves = n_distinct(CalfID)) |>\n  ungroup()\ncalves_by_sex <- ideal |>\n  mutate(sex_label = case_when(\n    CalfSex == 1 ~ \"Male\",\n    CalfSex == 2 ~ \"Female\",\n    TRUE ~ \"Unknown\"\n  )) |>\n  group_by(sublocation, sex_label) |>\n  summarise(n_calves = n_distinct(CalfID), .groups = \"drop\")","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"include":"false","label":"webr-data-load","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# store values in objects\nx <- 42\nmy_name <- \"your_name\"\n\n# call the objects back\nx\nmy_name","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"intro-objects","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# case-sensitivity in action\nWeight <- 30\nweight <- 25\n\nWeight == weight   # FALSE — these are two different objects","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"intro-casing","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# inspect the types of three columns from the IDEAL dataset\n# numeric — a measurement\nclass(ideal$Weight)    \n# character — a text label\nclass(ideal$ReasonsLoss1)  \nclass(ideal$CalfSex)","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"intro-types","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x <- 42 # an object holding one value...\nnums <- c(10, 20, 30)   # ...and an object holding a vector\n\nlength(x)  # 1  — a length-1 vector\nlength(nums) # 3\nis.vector(x) # TRUE — even one value is a vector","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"intro-obj-vs-vec","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Different vector types\nnums <- c(10, 20, 30)\nchars <- c(\"apple\", \"banana\", \"cherry\")\nlogicals <- c(TRUE, FALSE, TRUE)\n\n# Vector operations\nnums * 2 # multiply every element by 2\nnums[2] # get the second element\nlength(nums) # how many elements?","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"intro-vectors","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Create a matrix from the numbers 1 to 12, arranged in 3 rows\nmat <- matrix(1:12, nrow = 3, ncol = 4)\nmat\n\n# Dimensions\ndim(mat) # rows and columns\n\n# Access elements\nmat[2, 3] # row 2, column 3\nmat[1, ]  # the entire first row\nmat[, 2]  # the entire second column","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"intro-matrices","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# a list mixing a string, a number, and a vector\nperson <- list(\n  name = \"Amina\",\n  age = 32,\n  scores = c(80, 92, 75)\n)\n\nperson$name  # access by name with $\nperson[[\"scores\"]] # access by name, bracket form\nperson[[2]] # access by position","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"intro-lists","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# columns of equal length; types may differ\ndf <- data.frame(\n  county = c(\"Turkana\", \"Nairobi\", \"Kisumu\"),\n  cases  = c(120, 85, 60)\n)\ndf\n\ndf$county # one column, by name\ndf[1, ] # one row, by position\ndf[, \"cases\"] # one column, by name and position","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"intro-dataframes","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Practice area — experiment, then press Run\n\n# 1. Create your own vector\n\n\n# 2. Make a matrix\n\n\n# 3. Build a list\n\n\n# 4. Construct a data frame\n\n\n# Explore with: str(), class(), length(), dim()","id":10,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"intro-practice","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# A tibble prints its dimensions and column types automatically\nideal","id":11,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"show-data","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"head(ideal, 5)","id":12,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"inspect-head","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"dim(ideal)\nnames(ideal)","id":13,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"inspect-dim","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"glimpse(ideal)","id":14,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"inspect-glimpse","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"summary(ideal[, c(\"Weight\", \"ManualPCV\", \"Theileria.spp.\", \"ADWG\")])","id":15,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"inspect-summary","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# keep only calves that did not survive\nideal |>\n  filter(ReasonsLoss1 == \"died\")","id":16,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"filter-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Theileria-positive calves that survived — AND logic\nideal |>\n  dplyr::filter(`Theileria.spp.` == 1 & ReasonsLoss1 == \"survived\") |>\n  head()","id":17,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"filter-and","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# visits from either Kidera or Igero — OR logic\nideal |>\n  dplyr::filter(sublocation == \"Kidera\" | sublocation == \"Igero\") |>\n  head()","id":18,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"filter-or","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# use is.na() to test for missingness\nideal |>\n  filter(!is.na(Weight))","id":19,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"filter-na","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# count how many visits are missing a weight measurement\nideal |>\n  filter(is.na(Weight)) |>\n  nrow()","id":20,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"filter-na-check","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# select three specific sub-locations\nideal |>\n  dplyr::filter(sublocation %in% c(\"Kidera\", \"Igero\", \"Luanda\")) |>\n  dplyr::select(CalfID, sublocation, Weight, ReasonsLoss1) |>\n  head()","id":21,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"filter-in","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ideal |>\n  dplyr::select(CalfID, sublocation, CalfSex, Weight, ManualPCV, `Theileria.spp.`, ReasonsLoss1)","id":22,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"select-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# removing columns\nideal |>\n  select(-CADOB, -VisitID, -VisitWeek, -WeightMax, -WeightMin)","id":23,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"select-drop","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# select both ELISA columns without naming them explicitly\nideal |>\n  select(CalfID, starts_with(\"ELISA\")) |>\n  head(n = 1)","id":24,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"select-helpers","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# syntax: rename(new_name = old_name)\nideal |>\n  rename(\n    sex = CalfSex,\n    theileria = `Theileria.spp.`,\n    outcome = ReasonsLoss1\n  ) |>\n  select(CalfID, sex, theileria, outcome) |>\n  head(2)","id":25,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"rename-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# which calves were heaviest at the time of their visit?\nideal |>\n  filter(!is.na(Weight)) |>\n  select(CalfID, sublocation, Age, Weight, ReasonsLoss1) |>\n  arrange(desc(Weight)) |> # from largest to smallest.\n  head(5)","id":26,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"arrange","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# here we decode the integer sex code into a human-readable label.\nideal |>\n  mutate(sex_label = if_else(CalfSex == 1, \"Male\", \"Female\")) |>\n  select(CalfID, CalfSex, sex_label, Weight, ReasonsLoss1) |>\n  head(5)","id":27,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"mutate-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ideal |>\n  mutate(\n    sex_label = if_else(CalfSex == 1, \"Male\", \"Female\"),\n    weight_lbs = round(Weight * 2.205, 1), # convert kg to pounds\n    anaemic = ManualPCV < 24 # confirmatory test for anaemia\n  ) |>\n  select(CalfID, sex_label, Weight, weight_lbs, ManualPCV, anaemic) |>\n  head(3)","id":28,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"mutate-multi","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ideal |>\n  dplyr::mutate(\n    anaemia_class = case_when(\n      is.na(ManualPCV)  ~ \"Unknown\", # always test for NA first\n      ManualPCV < 24 ~ \"Severe anaemia\",\n      ManualPCV < 30 ~ \"Mild anaemia\",\n      TRUE ~ \"Normal\" \n    )\n  ) |>\n  dplyr::select(CalfID, ManualPCV, anaemia_class)","id":29,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"case-when","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ideal |>\n  summarise(\n    n_visits = n(),\n    n_calves = n_distinct(CalfID),\n    mean_weight = round(mean(Weight, na.rm = TRUE), 1),\n    mean_pcv = round(mean(ManualPCV, na.rm = TRUE), 1),\n    theileria_pos = sum(`Theileria.spp.` == 1, na.rm = TRUE)\n  )","id":30,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"summarise-alone","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"result <- ideal |>\n  group_by(sublocation, ReasonsLoss1) |>\n  summarise(\n    n_calves = n_distinct(CalfID),\n    mean_weight = round(mean(Weight,    na.rm = TRUE), 1),\n    mean_pcv = round(mean(ManualPCV, na.rm = TRUE), 1)\n  ) |>\n  ungroup() |>\n  arrange(sublocation, ReasonsLoss1)\nresult","id":31,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"group-summarise","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ideal |>\n  group_by(ReasonsLoss1) |>\n  summarise(\n    n_calves = n_distinct(CalfID),\n    theileria_pos = sum(`Theileria.spp.` == 1, na.rm = TRUE),\n    theileria_pct = round(mean(`Theileria.spp.` == 1, na.rm = TRUE) * 100, 1),\n    mean_pcv = round(mean(ManualPCV, na.rm = TRUE), 1),\n    mean_adwg = round(mean(ADWG,      na.rm = TRUE), 3)\n  ) |>\n  ungroup()","id":32,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"group-theileria","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# summarise to sublocation level, then attach geographic metadata\ncalf_summary <- ideal |>\n  group_by(sublocation) |>\n  summarise(\n    n_calves = n_distinct(CalfID),\n    mean_pcv = round(mean(ManualPCV, na.rm = TRUE), 1)\n  ) |>\n  ungroup()\n\ncalf_join <- calf_summary |>\n  left_join(sublocation_info, by = \"sublocation\")\n\ncalf_join","id":33,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"left-join","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# only sub-locations present in both tables survive\ncalf_summary |>\n  inner_join(sublocation_info, by = \"sublocation\")","id":34,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"inner-join","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# which sub-locations in the data have no metadata entry?\ncalf_summary |>\n  anti_join(sublocation_info, by = \"sublocation\")","id":35,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"anti-join","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ideal |>\n  left_join(sublocation_info, by = \"sublocation\") |>\n  filter(!is.na(Weight)) |>\n  select(CalfID, sublocation, division, altitude_m, Weight, ReasonsLoss1) |>\n  head(8)","id":36,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"join-raw","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(data = ideal,\n       mapping = aes(x = ReasonsLoss1)) +\n  geom_bar(fill = \"#185FA5\") +\n  theme_classic() +\n  labs(title = \"Survival of calves in the first year of life\",\n       x = \"\",\n       y = \"Number of visits\")","id":37,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"bar-plot","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"calves_per_sub <- ideal |>\n  group_by(sublocation) |>\n  summarise(n_calves = n_distinct(CalfID)) |>  # unique calves\n  ungroup()\n\ncalves_per_sub","id":38,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"col-data-prep","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(data = calves_per_sub,\n       mapping = aes(x = sublocation, y = n_calves)) +\n  geom_col(fill = \"#185FA5\") +\n  theme_classic() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +\n  labs(x = \"\", y = \"Number of calves\",\n       title = \"Calves recruited per sub-location\")","id":39,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"col-basic","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(data = calves_per_sub,\n       mapping = aes(x = reorder(sublocation, n_calves),\n                     y = n_calves)) +\n  geom_col(fill = \"#185FA5\") +\n  coord_flip() +\n  theme_classic() +\n  labs(x = \"\",\n       y = \"Number of calves\",\n       title = \"Calves recruited per sub-location\")","id":40,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"col-flipped","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"calves_by_sex <- ideal |>\n  mutate(sex_label = case_when(\n    CalfSex == 1 ~ \"Male\",\n    CalfSex == 2 ~ \"Female\",\n    TRUE ~ \"Unknown\"\n  )) |>\n  group_by(sublocation, sex_label) |>\n  summarise(n_calves = n_distinct(CalfID), .groups = \"drop\")\n\ncalves_by_sex","id":41,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"sex-data-prep","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"top6_subs <- calves_by_sex |>\n  group_by(sublocation) |>\n  summarise(total = sum(n_calves)) |>\n  slice_max(total, n = 5) |>\n  pull(sublocation)\n\nggplot(filter(calves_by_sex, sublocation %in% top6_subs),\n       aes(x = reorder(sublocation, n_calves),\n           y = n_calves, fill = sex_label)) +\n  geom_col(position = \"dodge\") +\n  scale_fill_manual(values = c(Male = \"#2196F3\", Female = \"#E91E63\")) +\n  coord_flip() + theme_classic() +\n  labs(x = \"\", y = \"Number of calves\", fill = \"Sex\",\n       title = \"Calves per sub-location by sex (top 5)\")","id":42,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"bar-grouped","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"kenya","id":43,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"sf-inspect","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(data = kenya) +\n  geom_sf(fill = \"white\", colour = \"black\", linewidth = 0.4) +\n  theme_void() +\n  labs(title = \"Kenya — County Boundaries (47 Counties)\")","id":44,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"kenya-outline","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# filter to a single species\ncattle <- population |>\n  filter(Species == \"Cattle(Total)\")\n\n# county names in the shapefile don't always match the CSV exactly —\n# case_when() fixes four known mismatches before the join\ncattle_map <- kenya |>\n  rename(county = ADM1_EN) |>\n  mutate(county = case_when(\n    county == \"Murang'a\" ~ \"Muranga\",\n    county == \"Elgeyo-Marakwet\" ~ \"Elgeyo Marakwet\",\n    county == \"Tharaka-Nithi\" ~ \"Tharaka Nithi\",\n    county == \"Trans Nzoia\" ~ \"Trans-Nzoia\",\n    TRUE ~ county\n  )) |>\n  left_join(cattle, by = \"county\")\n\ncattle_map |> select(county, value)","id":45,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"choropleth-prep","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"ggplot(data = cattle_map) +\n  geom_sf(aes(fill = value), colour = \"black\", linewidth = 0.3) +\n  scale_fill_gradient(low = 'lightyellow', \n                      high = 'darkred', \n                      labels = scales::comma,\n                      name = \"Cattle\") +\n  theme_void() +\n  labs(title = \"Cattle Population by County — Kenya\")","id":46,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"0.5","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"choropleth-plot","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
   </script>
   <script type="module">
@@ -2030,7 +2030,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Data Wrangling in R</h1>
+  <h1 class="title">Introduction to R</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -2117,7 +2117,7 @@ pre:not([class]) {
   right: 10px;
   width: 135px;
   height: 90px;
-  background: url("NPHI.png.jpeg") no-repeat center / contain;
+  background: url("images/NPHI.png.jpeg") no-repeat center / contain;
   mix-blend-mode: multiply;
   z-index: 999;
   pointer-events: none;
@@ -2144,7 +2144,7 @@ div.sourceCode {
 <script>
 (function () {
   /* ── Section tracker ── */
-  var NUM_SECTIONS = 9;
+  var NUM_SECTIONS = 12;
   function buildTracker() {
     if (document.getElementById("section-tracker")) return;
     var el = document.createElement("div");
@@ -2285,6 +2285,362 @@ div.sourceCode {
 </div></div>
 </section>
 <section>
+<section id="getting-started-with-r" class="title-slide slide level1 center">
+<h1>Getting Started with R</h1>
+
+</section>
+<section id="roadmap" class="slide level2">
+<h2>Roadmap</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Orientation</strong></p>
+<ul>
+<li>What R is, and R vs RStudio</li>
+<li>Navigating RStudio &amp; using Projects</li>
+<li>Objects, comments, and data types</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Building blocks</strong></p>
+<ul>
+<li>Objects vs vectors</li>
+<li>Vectors · matrices · lists · data frames</li>
+<li>A hands-on practice slide, then the tidyverse</li>
+</ul>
+</div></div>
+</section>
+<section id="what-is-r" class="slide level2">
+<h2>What is R?</h2>
+<ul>
+<li>R is a programming language for <strong>statistical computing</strong> built specifically for data analysis, statistical modelling, and visualisation.</li>
+<li>It is <strong>free and open source</strong> anyone can use it, inspect it, and extend it.</li>
+<li>Created by <strong>Ross Ihaka</strong> and <strong>Robert Gentleman</strong> at the University of Auckland in the early 1990s; the first public release came in <strong>1995</strong>.</li>
+<li>Since <strong>1997</strong>, the <strong>R Core Team</strong> has maintained the source code.</li>
+</ul>
+<blockquote>
+<p>Think of R as the <strong>engine</strong> that does the actual computation.</p>
+</blockquote>
+</section>
+<section id="a-short-history" class="slide level2">
+<h2>A Short History</h2>
+<ul>
+<li>R quickly gained traction among statisticians, researchers, and data analysts thanks to its <strong>flexibility</strong>.</li>
+<li>Its real growth came from a <strong>vibrant community</strong> of developers contributing packages and extensions — the ecosystem, not the core, is where most of R’s power lives.</li>
+<li>Today it is firmly established across both <strong>academia and industry</strong>.</li>
+</ul>
+<blockquote>
+<p>The story of R is really the story of its community. Every analysis you’ll run this week leans on code that someone, somewhere, contributed for free. <span class="muted small">(Huang &amp; Yang, 2022)</span></p>
+</blockquote>
+</section>
+<section id="r-vs-rstudio" class="slide level2">
+<h2>R vs RStudio</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>R</strong> — the programming language</p>
+<ul>
+<li>Does the actual computation</li>
+<li>Runs your code, returns results</li>
+<li>Can work on its own</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>RStudio (now Posit)</strong> — the IDE</p>
+<ul>
+<li>An <em>Integrated Development Environment</em> for R</li>
+<li>Makes writing R easier and more efficient</li>
+<li>Editor, console, plots, help, and environment in one window</li>
+</ul>
+</div></div>
+<blockquote>
+<p>RStudio sends your code to R, and R sends the results back.</p>
+</blockquote>
+</section>
+<section id="installing-r-rstudio" class="slide level2">
+<h2>Installing R &amp; RStudio</h2>
+<p>Two installs, in this order:</p>
+<ol type="1">
+<li><strong>R — the language</strong> — from <a href="https://cloud.r-project.org/">cloud.r-project.org</a></li>
+<li><strong>RStudio / Posit — the IDE</strong> — from <a href="https://posit.co/download/rstudio-desktop/">posit.co/download/rstudio-desktop</a></li>
+</ol>
+<blockquote>
+<p>Install <strong>R first</strong>, then RStudio — RStudio looks for an R engine already on your machine.</p>
+</blockquote>
+<div class="fragment">
+<blockquote>
+<p>For <em>this</em> session you don’t need either: every code cell on these slides runs real R <strong>live in your browser</strong> via WebR. Click into a cell, edit it, and press <strong>Run</strong>. For your own projects, though, install both.</p>
+</blockquote>
+</div>
+</section>
+<section id="navigating-rstudio" class="slide level2">
+<h2>Navigating RStudio</h2>
+<p>RStudio organises everything into <strong>four panes</strong>.</p>
+<div class="columns">
+<div class="column" style="width:58%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/rstudio_home.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:42%;">
+<ul>
+<li><strong>Source editor</strong> <em>(top-left)</em> — write and save your <code>.R</code> scripts</li>
+<li><strong>Console</strong> <em>(bottom-left)</em> — where code runs and results print</li>
+<li><strong>Environment</strong> <em>(top-right)</em> — the objects in your current session</li>
+<li><strong>Files · Plots · Packages · Help</strong> <em>(bottom-right)</em> — files, charts, packages, docs</li>
+</ul>
+</div></div>
+<blockquote>
+<p>The <strong>Environment</strong> pane is your live inventory. Every object you create appears there with its type and size.</p>
+</blockquote>
+</section>
+<section id="rstudio-in-action-run-see" class="slide level2">
+<h2>RStudio in Action — Run &amp; See</h2>
+<p>The core loop: type a command in the <strong>Console</strong>, press Enter, and the result appears — as text, or as a chart in the <strong>Plots</strong> pane.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/rstudio_console.png" style="width:100.0%"></p>
+<figcaption>The Console — ready at the <code>&gt;</code> prompt</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/rstudio_plot.png" style="width:100.0%"></p>
+<figcaption>Plots — <code>plot(1:10)</code> renders here, ready to Zoom or Export</figcaption>
+</figure>
+</div>
+</div></div>
+<blockquote>
+<p>Code typed in the Console runs at once but isn’t saved. Code written in the <strong>Source editor</strong> <em>is</em> saved and re-runnable — which is why real work lives in scripts, not the Console.</p>
+</blockquote>
+</section>
+<section id="rstudio-in-action" class="slide level2">
+<h2>RStudio in Action</h2>
+<p>As you create objects they fill the <strong>Environment</strong>; when you need a function’s arguments, the <strong>Help</strong> pane holds the official documentation.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/rstudio_env.png" style="width:100.0%"></p>
+<figcaption>Environment — your objects, with type and size</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/rstudio_help.png" style="width:100.0%"></p>
+<figcaption>Help — search any function, or type <code>?name</code></figcaption>
+</figure>
+</div>
+</div></div>
+<blockquote>
+<p>Reach Help instantly from the Console: <code>?mean</code> opens the docs for any function. The <strong>Files</strong> tab (bottom-right) is your project’s folder, right inside the IDE.</p>
+</blockquote>
+</section>
+<section id="organising-your-work-with-projects" class="slide level2">
+<h2>Organising Your Work with Projects</h2>
+<ul>
+<li>An <strong>R Project</strong> is a dedicated folder that keeps all the files, scripts, and data for a single analysis <strong>in one place</strong>.</li>
+<li>It keeps your work organised and makes your code <strong>reproducible and easier to share</strong>.</li>
+<li>Projects manage file paths <strong>automatically</strong> — so you never have to call <code>setwd()</code> or hard-code a path again.</li>
+</ul>
+<div class="fragment">
+<blockquote>
+<p>Create one with <strong>File → New Project</strong>. Inside a project, paths are <em>relative</em> to the project root — <code>read_csv("data/ideal3a.csv")</code> works on your machine, your colleague’s, and the marker’s, with no edits. This single habit prevents most “it works on my computer” problems.</p>
+</blockquote>
+</div>
+</section>
+<section id="objects-assignment" class="slide level2">
+<h2>Objects &amp; Assignment</h2>
+<ul>
+<li>R stores data in <strong>objects</strong> — labelled containers you can reuse.</li>
+<li>Assign a value to an object with the arrow <code>&lt;-</code> (or <code>=</code>, though <code>&lt;-</code> is the convention).</li>
+<li>Type an object’s name to print it back.</li>
+</ul>
+<div id="qwebr-insertion-location-2"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<blockquote>
+<p>Keyboard shortcut for <code>&lt;-</code> in RStudio: <strong>Alt + -</strong> (minus). You’ll type it hundreds of times a day.</p>
+</blockquote>
+</section>
+<section id="things-to-note" class="slide level2">
+<h2>Things to Note</h2>
+<ul>
+<li>R is <strong>case-sensitive</strong> — <code>Weight</code> and <code>weight</code> are two different objects.</li>
+<li>R is <strong>object-oriented</strong> — almost everything you work with is an object.</li>
+<li>Object names may use letters, numbers, <code>.</code> and <code>_</code>, but <strong>cannot</strong> start with a number, use a reserved word (<code>TRUE</code>, <code>FALSE</code>, …), or contain special characters (<code>#</code>, <code>\</code>, <code>/</code>, <code>*</code>, <code>&amp;</code>).</li>
+<li>The <code>#</code> sign starts a <strong>comment</strong> — R ignores everything after it on that line.</li>
+<li>Core data types: <strong>numeric</strong>, <strong>character</strong>, <strong>logical</strong>, <strong>factor</strong>, and <strong>dates</strong>.</li>
+</ul>
+<div id="qwebr-insertion-location-3"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
+<section id="data-types-in-r" class="slide level2">
+<h2>Data Types in R</h2>
+<ul>
+<li>Every value in R has a <strong>type</strong>. Knowing the type tells you what you can do with it.</li>
+<li>Use <code>class()</code> to ask R what kind of thing an object is.</li>
+</ul>
+<div id="qwebr-insertion-location-4"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<blockquote>
+<p>Notice <code>CalfSex</code> is stored as an integer code, not a label. Spotting that here is exactly why we’ll reach for <code>mutate()</code> and <code>case_when()</code> later to turn codes into meaning.</p>
+</blockquote>
+</section>
+<section id="objects-vs-vectors" class="slide level2">
+<h2>Objects vs Vectors</h2>
+<p>A common point of confusion. The two words describe different things:</p>
+<ul>
+<li>An <strong>object</strong> is the general term for <em>anything</em> you name and store — a single value, a table, a model, a plot. Everything in R is an object.</li>
+<li>A <strong>vector</strong> is one specific <em>structure</em> an object can take: an ordered collection of elements that are <strong>all the same type</strong>.</li>
+<li>There is no such thing as a lone “single value” in R — <code>x &lt;- 42</code> is really a <strong>vector of length 1</strong>.</li>
+</ul>
+<div id="qwebr-insertion-location-5"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<blockquote>
+<p>The takeaway: <strong>object</strong> is the noun for anything stored in R; <strong>vector</strong> is the simplest shape that object can take. The four structures coming next — vectors, matrices, lists, and data frames — are all <em>kinds of objects</em>.</p>
+</blockquote>
+</section>
+<section id="vectors-in-r" class="slide level2">
+<h2>Vectors in R</h2>
+<p>Vectors are the most basic data structure — a collection of elements of the <strong>same type</strong>. Build one with <code>c()</code> (“combine”), and reach into it with <code>[index]</code>.</p>
+<div id="qwebr-insertion-location-6"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<blockquote>
+<p>Operations apply to the <strong>whole vector at once</strong> — <code>nums * 2</code> doubles all three values without a loop. This is <em>vectorisation</em>, and it’s why R code for data is so compact.</p>
+</blockquote>
+</section>
+<section id="matrices-in-r" class="slide level2">
+<h2>Matrices in R</h2>
+<p>Matrices are <strong>two-dimensional</strong> arrays where every element must be the <strong>same type</strong>. Build one with <code>matrix()</code>, giving it data plus dimensions (<code>nrow</code>, <code>ncol</code>); index it with <code>[row, column]</code>.</p>
+<div id="qwebr-insertion-location-7"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<blockquote>
+<p>Leaving an index blank means “all of it”: <code>mat[1, ]</code> is the whole first row, <code>mat[, 2]</code> the whole second column. You’ll use this exact <code>[row, col]</code> logic on data frames next.</p>
+</blockquote>
+</section>
+<section id="lists-in-r" class="slide level2">
+<h2>Lists in R</h2>
+<p>Unlike a vector, a <strong>list</strong> can hold a <strong>mix</strong> of types and structures — numbers, text, vectors, even other lists.</p>
+<ul>
+<li><strong>Mixed types</strong> — numbers, text, vectors, all in one container</li>
+<li><strong>Named elements</strong> — reach them with <code>$</code></li>
+<li><strong>Flexible length</strong> — elements can be different sizes</li>
+<li><strong>Nested</strong> — lists can contain lists</li>
+</ul>
+<div id="qwebr-insertion-location-8"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<blockquote>
+<p>Lists are R’s flexible workhorse — model outputs, nested API responses, and the data frames you’re about to meet are all built on top of them.</p>
+</blockquote>
+</section>
+<section id="data-frames-in-r" class="slide level2">
+<h2>Data Frames in R</h2>
+<p>A <strong>data frame</strong> is like a spreadsheet — the most common structure for real analysis. Columns can be <strong>different types</strong>, but every column has the <strong>same number of rows</strong>.</p>
+<div id="qwebr-insertion-location-9"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<blockquote>
+<p>A <strong>tibble</strong> — what <code>read_csv()</code> returns — is just a modern data frame with friendlier printing. The <code>ideal</code> dataset you’ll wrangle next <em>is</em> a tibble: rows of calf visits, columns of measurements.</p>
+</blockquote>
+</section>
+<section id="your-turn-practice-exercise" class="slide level2">
+<h2>Your Turn — Practice Exercise</h2>
+<p>Time to put it together. Create each structure yourself, then explore it with <code>str()</code>, <code>class()</code>, <code>length()</code>, and <code>dim()</code>. Edit the cell and press <strong>Run</strong>.</p>
+<div id="qwebr-insertion-location-10"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<blockquote>
+<p>No wrong answers here — break things on purpose. Try mixing types inside <code>c()</code> and watch what R does (it quietly coerces them to one type). Curiosity now saves debugging later.</p>
+</blockquote>
+</section>
+<section id="the-r-ecosystem" class="slide level2">
+<h2>The R Ecosystem</h2>
+<p>R ships with a core, and the community builds outward from there. Packages fall into three tiers:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 40%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tier</th>
+<th>Who builds it</th>
+<th>How you get it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Base packages</strong></td>
+<td>The R Core Team</td>
+<td>Installed by default with R</td>
+</tr>
+<tr class="even">
+<td><strong>Recommended packages</strong></td>
+<td>Community, curated by R Core</td>
+<td>Also shipped by default</td>
+</tr>
+<tr class="odd">
+<td><strong>Contributed packages</strong></td>
+<td>Anyone</td>
+<td>Installed by <em>you</em> — from <strong>CRAN</strong> or sometimes <strong>GitHub</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>As of a March 2024 count, CRAN alone hosted over <strong>20,500</strong> packages — and that number climbs every week. You will only ever need a small, dependable handful.</p>
+</blockquote>
+</section>
+<section id="recent-developments" class="slide level2">
+<h2>Recent Developments</h2>
+<ul>
+<li>The ecosystem keeps evolving — with active growth in <strong>deep learning</strong>, modern <strong>data analysis</strong>, and <strong>visualisation</strong>.</li>
+<li>R integrates cleanly with other tools you may already use: <strong>Python, SQL, CSS, HTML and JavaScript</strong>.</li>
+</ul>
+<div class="fragment">
+<table class="caption-top">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>What it’s for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>RStudio / Posit</strong></td>
+<td>Integrated development environment for R <em>and</em> Python</td>
+</tr>
+<tr class="even">
+<td><strong>tidyverse</strong></td>
+<td>A coherent toolkit for data science</td>
+</tr>
+<tr class="odd">
+<td><strong>ggplot2</strong></td>
+<td>Data visualisation — the grammar of graphics</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>tidyverse</code> and <code>ggplot2</code> are the two you’ll use most this week — they’re the backbone of the Data Wrangling section that follows.</p>
+</blockquote>
+</div>
+</section>
+<section id="what-well-cover-this-week" class="slide level2">
+<h2>What We’ll Cover This Week</h2>
+<ul>
+<li><strong>Basics of the program</strong> — installing packages, the workspace, working directories</li>
+<li><strong>Importing data</strong> into R</li>
+<li><strong>Data wrangling / cleaning</strong> — reshaping messy data into tidy data</li>
+<li><strong>Data visualisation</strong> — turning tables into charts and maps</li>
+</ul>
+<blockquote>
+<p>Today’s focus is the middle of that list — <em>importing, wrangling, and visualising</em>. The very next section picks up exactly there.</p>
+</blockquote>
+</section></section>
+<section>
 <section id="reading-data-into-r" class="title-slide slide level1 center">
 <h1>Reading Data into R</h1>
 <p>Before you can analyse data, you must load it into R. Two tidyverse packages handle virtually every file format you will encounter in practice.</p>
@@ -2363,12 +2719,12 @@ div.sourceCode {
 <section>
 <section id="the-dataset-well-use-for-todays-session" class="title-slide slide level1 center">
 <h1>The Dataset We’ll Use for Today’s Session</h1>
-<p>The <strong>IDEAL study</strong> followed 534 calves across 14 sub-locations in Western Kenya, recording health indicators at roughly six-week intervals from birth to one year.</p>
+<p>The <strong>IDEAL study</strong> followed calves across 14 sublocations in Western Kenya, recording health indicators at roughly six-week intervals from birth to one year.</p>
 </section>
 <section id="loading-the-ideal-dataset" class="slide level2">
 <h2>Loading the IDEAL Dataset</h2>
 <p>Three lines take you from nothing to a live dataset. In practice, you run these once at the top of every script.</p>
-<div id="qwebr-insertion-location-2"></div>
+<div id="qwebr-insertion-location-11"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <blockquote>
 <p>Once a package is installed, you never need <code>install.packages()</code> again — only <code>library()</code>.</p>
@@ -2377,7 +2733,7 @@ div.sourceCode {
 <section>
 <section id="inspecting-your-data" class="title-slide slide level1 center">
 <h1>Inspecting Your Data</h1>
-<p>Never analyse data you have not looked at. These three functions are your first line of due diligence — run them immediately after every <code>read_*()</code> call.</p>
+<p>Never analyse data you have not looked at. These three functions are your first line of due diligence, run them immediately after every <code>read_*()</code> call.</p>
 </section>
 <section id="preview" class="slide level2">
 <h2>Preview</h2>
@@ -2388,10 +2744,10 @@ div.sourceCode {
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div id="qwebr-insertion-location-3"></div>
+<div id="qwebr-insertion-location-12"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div><div class="column" style="width:50%;">
-<div id="qwebr-insertion-location-4"></div>
+<div id="qwebr-insertion-location-13"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div></div>
 </section>
@@ -2401,7 +2757,7 @@ div.sourceCode {
 <li><code>glimpse()</code> transposes your data: each column becomes a row, showing its type and first few values side by side.</li>
 <li>In a single screen, you learn the shape, the types, and the range of values.</li>
 </ul>
-<div id="qwebr-insertion-location-5"></div>
+<div id="qwebr-insertion-location-14"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <blockquote>
 <p>Notice: <code>CalfSex</code> is an integer, not a label. Columns like <code>Theileria.spp.</code> contain dots in their names. <code>ReasonsLoss1</code> records the outcome. These are exactly the things we will fix with <code>rename()</code> and <code>mutate()</code>.</p>
@@ -2413,18 +2769,18 @@ div.sourceCode {
 <li><code>summary()</code> applies summary statistics to every numeric column. Missing values appear as a named count.</li>
 <li>One call brings out outliers, impossible values, and data completeness issues that would otherwise stay hidden until analysis.</li>
 </ul>
-<div id="qwebr-insertion-location-6"></div>
+<div id="qwebr-insertion-location-15"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section></section>
 <section>
 <section id="the-pipe-operator-filter" class="title-slide slide level1 center">
 <h1>The Pipe Operator &amp; <code>filter()</code></h1>
-<p>The pipe is the single most transformative idea in tidyverse programming. It turns nested, inside-out function calls into a left-to-right sentence.</p>
+<p>The pipe turns nested, inside-out function calls into a left-to-right sentence.</p>
 </section>
 <section id="the-pipe-operator" class="slide level2">
 <h2>The Pipe Operator <code>|&gt;</code></h2>
 <ul>
-<li>Without the pipe, reading R code means parsing from the innermost call outward — the opposite of how you reason about a problem.</li>
+<li>Without the pipe, reading R code means parsing from the innermost call outward which is the opposite of how you reason about a problem.</li>
 <li>The pipe lets you write steps in the order they happen.</li>
 </ul>
 <div class="columns">
@@ -2463,8 +2819,8 @@ div.sourceCode {
 <thead>
 <tr class="header">
 <th></th>
-<th><code>%&gt;%</code> (magrittr)</th>
-<th><code>\|&gt;</code> (base R)</th>
+<th><code>%&gt;%</code> (base R)</th>
+<th><code>\|&gt;</code> (magrittr)</th>
 </tr>
 </thead>
 <tbody>
@@ -2494,7 +2850,7 @@ div.sourceCode {
 <section id="filter-keeping-the-rows-you-need" class="slide level2">
 <h2><code>filter()</code> — Keeping the Rows You Need</h2>
 <p><code>filter()</code> evaluates a condition row by row and returns only the rows where the condition is <code>TRUE</code>. Every other row is silently discarded leaving the column structure is unchanged.</p>
-<div id="qwebr-insertion-location-7"></div>
+<div id="qwebr-insertion-location-16"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="filter-combining-conditions" class="slide level2">
@@ -2503,10 +2859,10 @@ div.sourceCode {
 <li>Separate conditions with a <code>&amp;</code> for AND logic, or <code>|</code> for OR logic.</li>
 <li>R tests each row independently — only rows that satisfy every condition are kept.</li>
 </ul>
-<div id="qwebr-insertion-location-8"></div>
+<div id="qwebr-insertion-location-17"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="fragment">
-<div id="qwebr-insertion-location-9"></div>
+<div id="qwebr-insertion-location-18"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <blockquote>
 <p>Column names containing <code>.</code> require backticks: <code>`Theileria.spp.`</code>. This friction is precisely why <code>rename()</code> matters — which we cover shortly.</p>
@@ -2516,10 +2872,10 @@ div.sourceCode {
 <section id="filter-handling-missing-values" class="slide level2">
 <h2><code>filter()</code> — Handling Missing Values</h2>
 <p>Missing values are R’s most common source of silent, hard-to-detect errors. The rule is simple: <code>NA == NA</code> returns <code>NA</code>, not <code>TRUE</code>. That means <code>filter(Weight == NA)</code> always returns zero rows — even when missing values exist.</p>
-<div id="qwebr-insertion-location-10"></div>
+<div id="qwebr-insertion-location-19"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="fragment">
-<div id="qwebr-insertion-location-11"></div>
+<div id="qwebr-insertion-location-20"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <blockquote>
 <p><code>is.na()</code> is the only reliable way to test for missing values in R.</p>
@@ -2596,7 +2952,7 @@ div.sourceCode {
 <li><code>%in%</code> tests membership in a set — far more readable than chaining multiple <code>==</code> conditions with <code>|</code>.</li>
 <li>It scales naturally: adding a fourth location is one comma, not a new line of logic.</li>
 </ul>
-<div id="qwebr-insertion-location-12"></div>
+<div id="qwebr-insertion-location-21"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section></section>
 <section>
@@ -2611,7 +2967,7 @@ div.sourceCode {
 <section id="select-choosing-your-columns" class="slide level2">
 <h2><code>select()</code> — Choosing Your Columns</h2>
 <p>Pass column names directly. <code>select()</code> returns a tibble with exactly those columns in the order you listed them. Rows are untouched.</p>
-<div id="qwebr-insertion-location-13"></div>
+<div id="qwebr-insertion-location-22"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <blockquote>
 <p>Columns with <code>.</code> in their names still require backticks inside <code>select()</code>. One of many reasons to <code>rename()</code> early.</p>
@@ -2620,13 +2976,13 @@ div.sourceCode {
 <section id="select-dropping-columns" class="slide level2">
 <h2><code>select()</code> — Dropping Columns</h2>
 <p>Prefix any name with <code>-</code> to drop it instead of keeping it. When you want most columns but not a few, dropping is more concise than listing every keeper.</p>
-<div id="qwebr-insertion-location-14"></div>
+<div id="qwebr-insertion-location-23"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="select-helper-functions" class="slide level2">
 <h2><code>select()</code> — Helper Functions</h2>
 <p>When a dataset has dozens of columns, selecting by pattern is more robust than listing names.</p>
-<div id="qwebr-insertion-location-15"></div>
+<div id="qwebr-insertion-location-24"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <table class="caption-top">
 <thead>
@@ -2664,7 +3020,7 @@ div.sourceCode {
 <ul>
 <li>You have now seen the friction that raw source names create — backticks for <code>Theileria.spp.</code>, uppercase everywhere, cryptic codes like <code>ReasonsLoss1</code>. <code>rename()</code> removes that friction permanently. Do it once, and every line that follows is cleaner.</li>
 </ul>
-<div id="qwebr-insertion-location-16"></div>
+<div id="qwebr-insertion-location-25"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="arrange-sorting-rows" class="slide level2">
@@ -2672,7 +3028,7 @@ div.sourceCode {
 <ul>
 <li><code>arrange()</code> reorders rows by one or more columns. Unlike <code>filter()</code>, it never removes rows it only changes their order.</li>
 </ul>
-<div id="qwebr-insertion-location-17"></div>
+<div id="qwebr-insertion-location-26"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section></section>
 <section>
@@ -2688,7 +3044,7 @@ div.sourceCode {
 <ul>
 <li><code>mutate()</code> appends the new column to the right of the tibble. Every existing column is preserved exactly as it was.</li>
 </ul>
-<div id="qwebr-insertion-location-18"></div>
+<div id="qwebr-insertion-location-27"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="mutate-multiple-columns-at-once" class="slide level2">
@@ -2696,7 +3052,7 @@ div.sourceCode {
 <ul>
 <li>A single <code>mutate()</code> call creates as many columns as you need. Later expressions in the same call can reference columns created earlier, so the order of your derivations matters and can build on itself.</li>
 </ul>
-<div id="qwebr-insertion-location-19"></div>
+<div id="qwebr-insertion-location-28"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="mutate-with-case_when" class="slide level2">
@@ -2705,7 +3061,7 @@ div.sourceCode {
 <li><code>case_when()</code> is R’s vectorised multi-condition classifier — the equivalent of Excel’s nested <code>IFS</code>.</li>
 <li>Each condition is evaluated top-to-bottom; the first <code>TRUE</code> match determines the value assigned to that row.</li>
 </ul>
-<div id="qwebr-insertion-location-20"></div>
+<div id="qwebr-insertion-location-29"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="case_when-the-mental-model" class="slide level2">
@@ -2714,9 +3070,9 @@ div.sourceCode {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(</span>
 <span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">new_column =</span> <span class="fu">case_when</span>(</span>
-<span id="cb7-3"><a href="" aria-hidden="true" tabindex="-1"></a>    condition_1  <span class="sc">~</span> <span class="st">"value when condition_1 is TRUE"</span>,</span>
-<span id="cb7-4"><a href="" aria-hidden="true" tabindex="-1"></a>    condition_2  <span class="sc">~</span> <span class="st">"value when condition_2 is TRUE"</span>,</span>
-<span id="cb7-5"><a href="" aria-hidden="true" tabindex="-1"></a>    condition_3  <span class="sc">~</span> <span class="st">"value when condition_3 is TRUE"</span>,</span>
+<span id="cb7-3"><a href="" aria-hidden="true" tabindex="-1"></a>    condition_1 <span class="sc">~</span> <span class="st">"value when condition_1 is TRUE"</span>,</span>
+<span id="cb7-4"><a href="" aria-hidden="true" tabindex="-1"></a>    condition_2 <span class="sc">~</span> <span class="st">"value when condition_2 is TRUE"</span>,</span>
+<span id="cb7-5"><a href="" aria-hidden="true" tabindex="-1"></a>    condition_3 <span class="sc">~</span> <span class="st">"value when condition_3 is TRUE"</span>,</span>
 <span id="cb7-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"value for everything else"</span></span>
 <span id="cb7-7"><a href="" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb7-8"><a href="" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2726,12 +3082,12 @@ div.sourceCode {
 <section>
 <section id="group_by-summarise" class="title-slide slide level1 center">
 <h1><code>group_by()</code> &amp; <code>summarise()</code></h1>
-<p>Most research questions are comparisons: <em>does this outcome differ across groups?</em> <code>group_by()</code> and <code>summarise()</code> are how tidyverse answers them</p>
+<p>Most research questions are comparisons: <strong>Does this outcome differ across groups?</strong> <code>group_by()</code> and <code>summarise()</code> are how tidyverse answers them</p>
 </section>
 <section id="summarise-the-baseline" class="slide level2">
 <h2><code>summarise()</code> — The Baseline</h2>
 <p>Without a grouping, <code>summarise()</code> collapses the entire dataset to a single summary row. This is your reference point.</p>
-<div id="qwebr-insertion-location-21"></div>
+<div id="qwebr-insertion-location-30"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <blockquote>
 <p><code>na.rm = TRUE</code> tells R to ignore missing values when computing the mean. Without it, any column containing a single <code>NA</code> returns <code>NA</code> as the summary.</p>
@@ -2743,12 +3099,12 @@ div.sourceCode {
 <li>Add <code>group_by()</code> and every summary is computed independently for each group. The result is one row per unique combination of grouping variables.</li>
 <li>Call <code>ungroup()</code> afterwards to release the grouping structure.</li>
 </ul>
-<div id="qwebr-insertion-location-22"></div>
+<div id="qwebr-insertion-location-31"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="disease-burden-by-outcome" class="slide level2">
 <h2>Disease Burden by Outcome</h2>
-<div id="qwebr-insertion-location-23"></div>
+<div id="qwebr-insertion-location-32"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="common-summary-functions" class="slide level2">
@@ -2806,7 +3162,7 @@ div.sourceCode {
 <section>
 <section id="joins" class="title-slide slide level1 center">
 <h1>Joins</h1>
-<p>Real datasets live across multiple tables. Joins are how you reunite them — matching rows from two sources on a shared key, without manually copying values between files.</p>
+<p>Real datasets live across multiple tables. Joins are how you reunite them, matching rows from two sources on a shared key, without manually copying values between files.</p>
 </section>
 <section id="why-joins" class="slide level2">
 <h2>Why Joins?</h2>
@@ -2897,7 +3253,7 @@ div.sourceCode {
 </section>
 <section id="left_join-attach-without-losing-rows" class="slide level2">
 <h2><code>left_join()</code> — Attach Without Losing Rows</h2>
-<div id="qwebr-insertion-location-24"></div>
+<div id="qwebr-insertion-location-33"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <blockquote>
 <p><strong>Yiro West</strong> has no entry in <code>sublocation_info</code>, so it receives <code>NA</code> for <code>division</code> and <code>altitude_m</code>. It is still present in the result — <code>left_join()</code> never drops a row from the left table.</p>
@@ -2905,15 +3261,15 @@ div.sourceCode {
 </section>
 <section id="inner_join-only-complete-matches" class="slide level2">
 <h2><code>inner_join()</code> — Only Complete Matches</h2>
-<div id="qwebr-insertion-location-25"></div>
+<div id="qwebr-insertion-location-34"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <blockquote>
-<p><strong>Yiro West</strong> is now absent — it had no match on the right. Use <code>inner_join()</code> when your analysis requires complete information for every row, and you are prepared to lose unmatched records.</p>
+<p><strong>Yiro West</strong> is now absent. It had no match on the right. Use <code>inner_join()</code> when your analysis requires complete information for every row, and you are prepared to lose unmatched records.</p>
 </blockquote>
 </section>
 <section id="anti_join-diagnosing-the-gaps" class="slide level2">
 <h2><code>anti_join()</code> — Diagnosing the Gaps</h2>
-<div id="qwebr-insertion-location-26"></div>
+<div id="qwebr-insertion-location-35"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <blockquote>
 <p><code>anti_join()</code> returns only the rows that <em>failed</em> to match. It is a data quality diagnostic. Run it before any analysis that depends on a join to catch missing reference records.</p>
@@ -2921,20 +3277,20 @@ div.sourceCode {
 </section>
 <section id="joining-on-the-full-dataset" class="slide level2">
 <h2>Joining on the Full Dataset</h2>
-<div id="qwebr-insertion-location-27"></div>
+<div id="qwebr-insertion-location-36"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <blockquote>
-<p>When you join on the full visit-level dataset, each metadata value repeats for every row belonging to that sub-location. This is correct — it is how tidy, rectangular data works.</p>
+<p>When you join on the full visit-level dataset, each metadata value repeats for every row belonging to that sub-location.</p>
 </blockquote>
 </section></section>
 <section>
 <section id="data-visualisation-in-r" class="title-slide slide level1 center">
 <h1>Data Visualisation in R</h1>
-<p><code>ggplot2</code> translates data frames into graphics through three composable layers that stack with <code>+</code>: <strong>data</strong>, <strong>aesthetics</strong> (<code>aes()</code>), and <strong>geometry</strong> (<code>geom_*()</code>). Everything else — themes, labels, scales — is optional polish on top.</p>
+<p><code>ggplot2</code> translates data frames into graphics through three composable layers that stack with <code>+</code>: <strong>data</strong>, <strong>aesthetics</strong> (<code>aes()</code>), and <strong>geometry</strong> (<code>geom_*()</code>). Everything else (themes, labels, scales) is optional to polish on top.</p>
 </section>
 <section id="geom_bar-counting-outcomes" class="slide level2 code-only">
 <h2><code>geom_bar()</code> — Counting Outcomes</h2>
-<div id="qwebr-insertion-location-28"></div>
+<div id="qwebr-insertion-location-37"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="geom_bar-result" class="slide level2">
@@ -2966,15 +3322,15 @@ div.sourceCode {
 <section id="preparing-the-data-calves_per_sub" class="slide level2">
 <h2>Preparing the Data — <code>calves_per_sub</code></h2>
 <p>Before using <code>geom_col()</code>, summarise to one row per sub-location.</p>
-<div id="qwebr-insertion-location-29"></div>
+<div id="qwebr-insertion-location-38"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <blockquote>
-<p><code>n_distinct(CalfID)</code> counts unique calves per sub-location. Notice the spread — some sub-locations recruited nearly twice as many calves as others.</p>
+<p><code>n_distinct(CalfID)</code> counts unique calves per sub-location.</p>
 </blockquote>
 </section>
 <section id="geom_col-pre-summarised-data" class="slide level2 code-only">
 <h2><code>geom_col()</code> — Pre-summarised Data</h2>
-<div id="qwebr-insertion-location-30"></div>
+<div id="qwebr-insertion-location-39"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="geom_col-result" class="slide level2">
@@ -2991,7 +3347,7 @@ div.sourceCode {
 </div>
 </div>
 </div><div class="column" style="width:40%;">
-<p><code>geom_col()</code> requires both <code>x</code> and <code>y</code> — you supply the heights you already computed.</p>
+<p><code>geom_col()</code> requires both <code>x</code> and <code>y</code>, you supply the heights you already computed.</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -3018,7 +3374,7 @@ div.sourceCode {
 </tr>
 </tbody>
 </table>
-<p>Notice the overlapping x-axis labels — a common problem with many categories. The next slide shows the fix.</p>
+<p>Notice the overlapping x-axis labels, a common problem with many categories. The next slide shows the fix.</p>
 <blockquote>
 <p><strong>Try it:</strong> go back and add <code>fill = sublocation</code> inside <code>aes()</code> to colour each bar differently, then advance again.</p>
 </blockquote>
@@ -3026,7 +3382,7 @@ div.sourceCode {
 </section>
 <section id="coord_flip-and-reorder" class="slide level2 code-only">
 <h2><code>coord_flip()</code> and <code>reorder()</code></h2>
-<div id="qwebr-insertion-location-31"></div>
+<div id="qwebr-insertion-location-40"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="coord_flip-result" class="slide level2">
@@ -3055,8 +3411,8 @@ div.sourceCode {
 </section>
 <section id="preparing-the-data-calves_by_sex" class="slide level2">
 <h2>Preparing the Data — <code>calves_by_sex</code></h2>
-<p>To split bars by gender , we need two grouping variables. Run this before the next slide.</p>
-<div id="qwebr-insertion-location-32"></div>
+<p>To split bars by gender, we need two grouping variables. Run this before the next slide.</p>
+<div id="qwebr-insertion-location-41"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <blockquote>
 <p>The table now has <strong>two rows per sub-location</strong> — one for each sex. The next slide maps <code>CalfSex</code> to <code>fill</code> to split the bars.</p>
@@ -3064,7 +3420,7 @@ div.sourceCode {
 </section>
 <section id="grouped-bars-the-fill-aesthetic" class="slide level2 code-only">
 <h2>Grouped Bars — the <code>fill</code> Aesthetic</h2>
-<div id="qwebr-insertion-location-33"></div>
+<div id="qwebr-insertion-location-42"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="grouped-bars-result" class="slide level2">
@@ -3120,18 +3476,15 @@ div.sourceCode {
 <p>Spatial analysis in R centres on the <strong><code>sf</code></strong> package — <em>simple features</em> — which stores geographic shapes as ordinary data frames with a special <strong>geometry column</strong> attached. Every dplyr verb works on <code>sf</code> objects: <code>filter()</code>, <code>mutate()</code>, <code>left_join()</code>, and so on.</p>
 <p>Two key ideas to remember:</p>
 <ul>
-<li><code>read_sf()</code> reads a GeoPackage (or shapefile) into a data frame with geometry — exactly like <code>read_csv()</code> reads a CSV</li>
+<li><code>st_read()</code> reads a GeoPackage (or shapefile) into a data frame with geometry — exactly like <code>read_csv()</code> reads a CSV</li>
 <li><code>geom_sf()</code> renders the geometry column automatically inside ggplot2 — no coordinate wrangling needed</li>
 </ul>
-<blockquote>
-<p>The <code>kenya</code> object is already loaded in this session — downloaded from GitHub the same way as <code>ideal3a.csv</code>. Inspect it below:</p>
-</blockquote>
-<div id="qwebr-insertion-location-34"></div>
+<div id="qwebr-insertion-location-43"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="geom_sf-kenya-boundaries" class="slide level2 code-only">
 <h2><code>geom_sf()</code> — Kenya Boundaries</h2>
-<div id="qwebr-insertion-location-35"></div>
+<div id="qwebr-insertion-location-44"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="geom_sf-result" class="slide level2">
@@ -3162,7 +3515,7 @@ div.sourceCode {
 <section id="preparing-the-choropleth-cattle-population" class="slide level2">
 <h2>Preparing the Choropleth — Cattle Population</h2>
 <p>Filter the population data to one species and build the joined spatial table.</p>
-<div id="qwebr-insertion-location-36"></div>
+<div id="qwebr-insertion-location-45"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <blockquote>
 <p>The <code>case_when()</code> step is a real-world data quality step — spelling mismatches between datasets are extremely common. Always check with <code>setdiff(table_a$key, table_b$key)</code> before any join.</p>
@@ -3170,7 +3523,7 @@ div.sourceCode {
 </section>
 <section id="choropleth-cattle-population" class="slide level2 code-only">
 <h2>Choropleth — Cattle Population</h2>
-<div id="qwebr-insertion-location-37"></div>
+<div id="qwebr-insertion-location-46"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="choropleth-result" class="slide level2">
@@ -3258,7 +3611,7 @@ div.sourceCode {
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="cema_logo.png" class="slide-logo"></p>
+<p><img src="images/cema_logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
 
 </div>
