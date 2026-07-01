@@ -1,6 +1,6 @@
 ---
 title: "Introduction to R"
-author: "Ryan Musasia"
+author: "Ryan Musasia and Abigael Gachemi"
 filters:
   - webr
 webr:
